@@ -1,3 +1,5 @@
+server:
+  port: 8080
 spring:
   data:
     redis:
@@ -26,7 +28,7 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
         show_sql: true        # Hi?n th? SQL trong logs
         format_sql: true      # Format SQL cho d? ??c
-        use-new-id-generator-mappings: true # T??ng thích v?i c?u hình ID m?i
+        use-new-id-generator-mappings: true # T??ng thï¿½ch v?i c?u hï¿½nh ID m?i
     generate-ddl: true
     hibernate:
       ddl-auto: update

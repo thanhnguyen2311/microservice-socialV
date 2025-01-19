@@ -1,5 +1,6 @@
 package com.example.userservice.config;
 
+import com.github.javafaker.Faker;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -24,5 +25,10 @@ public class RedisConfig {
         template.afterPropertiesSet();
 
         return template;
+    }
+
+    @Bean
+    public Faker faker() {
+        return new Faker();
     }
 }

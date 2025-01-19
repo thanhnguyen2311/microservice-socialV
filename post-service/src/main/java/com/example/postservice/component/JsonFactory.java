@@ -1,4 +1,4 @@
-package com.example.userservice.component;
+package com.example.postservice.component;
 
 import com.google.gson.Gson;
 

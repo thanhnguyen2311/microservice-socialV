@@ -1,4 +1,4 @@
-package com.example.userservice.repository;
+package com.example.postservice.repository;
 
 
 import java.util.concurrent.TimeUnit;

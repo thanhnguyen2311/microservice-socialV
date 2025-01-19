@@ -1,6 +1,6 @@
-package com.example.userservice.component;
+package com.example.postservice.component;
 
-import com.example.userservice.dto.BaseResponse;
+import com.example.postservice.dto.BaseResponse;
 import org.springframework.stereotype.Component;
 
 @Component

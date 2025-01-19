@@ -41,4 +41,9 @@ public class UserService implements IUserService {
     public void remove(Long id) {
         userRepository.deleteById(id);
     }
+
+    @Override
+    public boolean checkExistUser(String id) {
+        return userRepository.existsSocialVUserById(Long.parseLong(id));
+    }
 }

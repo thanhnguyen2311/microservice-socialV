@@ -1,4 +1,4 @@
-package com.example.userservice.repository;
+package com.example.postservice.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

@@ -1,7 +1,5 @@
 package com.example.userservice.service;
 
-import java.util.Optional;
-
 public interface IGeneralService<T> {
     Iterable<T> findAll();
 

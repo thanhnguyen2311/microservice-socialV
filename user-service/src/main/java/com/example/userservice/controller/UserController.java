@@ -2,6 +2,7 @@ package com.example.userservice.controller;
 
 import com.example.userservice.component.Common;
 import com.example.userservice.dto.BaseResponse;
+import com.example.userservice.dto.CheckUserDTO;
 import com.example.userservice.entity.SocialVUser;
 import com.example.userservice.service.impl.UserService;
 import com.github.javafaker.Faker;
@@ -15,7 +16,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private Common com;
-    private Faker faker = new Faker();
+    @Autowired
+    private Faker faker;
 
     @GetMapping
     public BaseResponse<Object> getAllUsers() {
@@ -56,6 +58,21 @@ public class UserController {
         BaseResponse<Object> response = new BaseResponse<>();
         try {
             response.setData(userService.findById(id));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return com.getErrorResponse(response);
+        }
+        return response;
+    }
+
+    @PostMapping("/check-exist")
+    public BaseResponse<Object> checkUserExist(@RequestBody CheckUserDTO dto) {
+        BaseResponse<Object> response = new BaseResponse<>();
+        try {
+            if (!userService.checkExistUser(dto.getUserId())) {
+                response.setCode("05");
+                response.setMessage("User not found");
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return com.getErrorResponse(response);

@@ -15,10 +15,10 @@ import java.util.List;
 public class FriendController {
     @Autowired
     private IFriendRequestService friendRequestService;
-
     @Autowired
     private Common com;
-    private Faker faker = new Faker();
+    @Autowired
+    private Faker faker;
 
     @PostMapping("/gen-fake-data")
     public String genFakeData() {
