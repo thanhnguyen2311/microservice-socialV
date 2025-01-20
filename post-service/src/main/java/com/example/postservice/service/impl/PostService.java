@@ -5,15 +5,19 @@ import com.example.postservice.component.JsonFactory;
 import com.example.postservice.component.RestFactory;
 import com.example.postservice.dto.BaseResponse;
 import com.example.postservice.dto.CreatePostDTO;
+import com.example.postservice.dto.GetUserPostDTO;
 import com.example.postservice.entity.Post;
 import com.example.postservice.enumm.PostStatus;
 import com.example.postservice.repository.PostRepository;
 import com.example.postservice.service.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class PostService implements IPostService {
@@ -50,5 +54,11 @@ public class PostService implements IPostService {
     @Override
     public void delete(Post post) {
         postRepository.delete(post);
+    }
+
+    @Override
+    public List<Post> findAllByUserId(GetUserPostDTO dto) {
+        PageRequest pageRequest = PageRequest.of(dto.getPageIndex(), dto.getPageSize(), Sort.by(Sort.Order.desc("createdDate")));
+        return postRepository.findAllByUserIdOrderByCreatedDateDesc(Long.parseLong(dto.getUserId()), pageRequest).getContent();
     }
 }

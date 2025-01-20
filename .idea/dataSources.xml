@@ -13,15 +13,6 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="0@localhost" uuid="731b37a0-48d4-4d34-94f9-bf51ab7dc13b">
-      <driver-ref>redis</driver-ref>
-      <synchronize>true</synchronize>
-      <imported>true</imported>
-      <remarks>$PROJECT_DIR$/post-service/src/main/resources/application.yml</remarks>
-      <jdbc-driver>jdbc.RedisDriver</jdbc-driver>
-      <jdbc-url>jdbc:redis://localhost:6379/0</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
     <data-source source="LOCAL" name="SocialV@localhost" uuid="ce077609-5e2d-456e-8893-f6244ea309b8">
       <driver-ref>mongo</driver-ref>
       <synchronize>true</synchronize>
@@ -52,15 +43,6 @@
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
         <property name="com.intellij.clouds.kubernetes.db.container.port" />
       </jdbc-additional-properties>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="0@localhost" uuid="261aede7-619a-41b0-9d47-ebee747d51d6">
-      <driver-ref>redis</driver-ref>
-      <synchronize>true</synchronize>
-      <imported>true</imported>
-      <remarks>$PROJECT_DIR$/user-service/src/main/resources/application.yml</remarks>
-      <jdbc-driver>jdbc.RedisDriver</jdbc-driver>
-      <jdbc-url>jdbc:redis://localhost:6379/0</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

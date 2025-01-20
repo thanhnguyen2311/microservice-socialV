@@ -3,12 +3,13 @@ package com.example.postservice.controller;
 import com.example.postservice.component.Common;
 import com.example.postservice.dto.BaseResponse;
 import com.example.postservice.dto.CreatePostDTO;
+import com.example.postservice.dto.GetUserPostDTO;
+import com.example.postservice.entity.Post;
 import com.example.postservice.service.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/post")
@@ -30,4 +31,19 @@ public class PostController {
         return response;
 
     }
+
+    @PostMapping("/get-all-by-user")
+    public BaseResponse<Object> getAllByUser(@RequestBody GetUserPostDTO dto) {
+        BaseResponse<Object> response = new BaseResponse<>();
+        try {
+            List<Post> postList = postService.findAllByUserId(dto);
+            response.setData(postList);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return com.getErrorResponse(response);
+        }
+        return response;
+    }
+
+
 }
