@@ -1,10 +1,12 @@
 package com.example.postservice.controller;
 
 import com.example.postservice.component.Common;
-import com.example.postservice.entity.PostLike;
-import com.github.javafaker.Faker;
+import com.example.postservice.dto.BaseResponse;
+import com.example.postservice.dto.CreateCommentDTO;
+import com.example.postservice.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,15 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class InteractionController {
     @Autowired
     private Common com;
-
     @Autowired
-    private Faker faker;
+    private ICommentService commentService;
 
-//    @GetMapping
-//    public String generateDataLike() {
-//        PostLike postLike = new PostLike();
-//        for (int i = 0; i < 1000; i++) {
-//            postLike.getId()
-//        }
-//    }
+    @PostMapping("/comment")
+    public BaseResponse<Object> comment(@RequestBody CreateCommentDTO dto) {
+        BaseResponse<Object> rp = new BaseResponse<>();
+        try {
+            rp = commentService.save(dto, rp);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return com.getErrorResponse(rp);
+        }
+        return rp;
+    }
 }

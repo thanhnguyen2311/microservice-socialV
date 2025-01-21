@@ -1,5 +1,6 @@
 package com.example.userservice.service.impl;
 
+import com.example.userservice.dto.CheckFriendDTO;
 import com.example.userservice.dto.FriendRequestDTO;
 import com.example.userservice.dto.MutualFriendDTO;
 import com.example.userservice.dto.UserProjectionDTO;
@@ -46,7 +47,7 @@ public class FriendRequestService implements IFriendRequestService {
     public boolean checkCreateFriendRequest(FriendRequestDTO dto) {
         if (dto.getUserRequestId().equals(dto.getUserReceiveId())) return false;
         if (!userRepository.existsSocialVUserById(dto.getUserReceiveId())) return false;
-        if (!userRepository.existsSocialVUserById(dto.getUserReceiveId())) return false;
+        if (!userRepository.existsSocialVUserById(dto.getUserRequestId())) return false;
         if (friendRequestRepository.existsFriendshipBetweenUsers(dto.getUserRequestId(), dto.getUserReceiveId()))
             return false;
         return true;
@@ -76,5 +77,10 @@ public class FriendRequestService implements IFriendRequestService {
     @Override
     public List<MutualFriendDTO> getListMutualFriend(Long userId, Long friendId) {
         return friendRequestRepository.findMutualFriendList(userId, friendId);
+    }
+
+    @Override
+    public boolean checkIsFriendship(CheckFriendDTO dto) {
+        return friendRequestRepository.isFriend(Long.parseLong(dto.getUserId()), Long.parseLong(dto.getFriendId()));
     }
 }

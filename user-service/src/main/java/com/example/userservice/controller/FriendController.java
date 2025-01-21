@@ -105,4 +105,19 @@ public class FriendController {
         }
         return rp;
     }
+
+    @PostMapping("/check-friend")
+    public BaseResponse<Object> checkFriend(@RequestBody CheckFriendDTO dto) {
+        BaseResponse<Object> rp = new BaseResponse<>();
+        try {
+            if (!friendRequestService.checkIsFriendship(dto)) {
+                rp.setCode("03");
+                rp.setMessage("Not exist friendship");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return com.getErrorResponse(rp);
+        }
+        return rp;
+    }
 }

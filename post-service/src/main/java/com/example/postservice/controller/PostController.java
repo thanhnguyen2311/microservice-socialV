@@ -45,5 +45,16 @@ public class PostController {
         return response;
     }
 
+    @PostMapping("/get-post-friend-wall")
+    public BaseResponse<Object> getPostFriendWall(@RequestBody GetUserPostDTO dto) {
+        BaseResponse<Object> response = new BaseResponse<>();
+        try {
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return com.getErrorResponse(response);
+        }
+        return response;
+    }
 
 }

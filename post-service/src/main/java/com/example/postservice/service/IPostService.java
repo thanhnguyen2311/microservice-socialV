@@ -12,4 +12,5 @@ public interface IPostService {
     public Post findById(long id);
     public void delete(Post post);
     public List<Post> findAllByUserId(GetUserPostDTO dto);
+    public BaseResponse<Object> findAllPostsFriendWall(GetUserPostDTO dto, BaseResponse rp);
 }

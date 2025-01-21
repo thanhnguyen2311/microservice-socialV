@@ -1,9 +1,13 @@
 package com.example.postservice.controller;
 
 import com.example.postservice.dto.BaseResponse;
+import com.example.postservice.dto.CreateCommentDTO;
 import com.example.postservice.dto.CreatePostDTO;
+import com.example.postservice.entity.Comment;
 import com.example.postservice.entity.Post;
 import com.example.postservice.entity.PostLike;
+import com.example.postservice.enumm.CommentType;
+import com.example.postservice.service.ICommentService;
 import com.example.postservice.service.IPostService;
 import com.example.postservice.service.IPostLikeService;
 import com.github.javafaker.Faker;
@@ -74,6 +78,8 @@ public class FakeDataController {
     @Autowired
     private IPostLikeService postLikeService;
     @Autowired
+    private ICommentService commentService;
+    @Autowired
     private MongoTemplate mongoTemplate;
 
     @PostMapping("/gen-post")
@@ -105,6 +111,22 @@ public class FakeDataController {
             if (!postLikeService.existsByPostIdAndAndUserId(postLike.getPostId(), postLike.getUserId())) {
                 postLikeService.save(postLike);
             }
+        }
+        return "done";
+    }
+
+    @PostMapping("/gen-comment")
+    public String generateComment() {
+        Random random = new Random();
+        BaseResponse<Object> response = new BaseResponse<>();
+        List<String> postIds = getAllPostIds();
+        CreateCommentDTO dto = new CreateCommentDTO();
+        for (int i = 0; i < 1000; i++) {
+            dto.setUserId(String.valueOf(faker.number().numberBetween(1, 100)));
+            dto.setPostId(postIds.get(random.nextInt(postIds.size())));
+            dto.setCommentType("PARENT_CMT");
+            dto.setContent(faker.lorem().sentence(10));
+            commentService.save(dto, response);
         }
         return "done";
     }

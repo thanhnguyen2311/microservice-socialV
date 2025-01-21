@@ -18,6 +18,11 @@ public interface IFriendRequestRepository extends JpaRepository<FriendRequest, L
             "(f.userReceiveId = :friendId AND f.userRequestId = :userId)")
     boolean existsFriendshipBetweenUsers(@Param("userId") Long userId, @Param("friendId") Long friendId);
 
+    @Query("SELECT COUNT(f) > 0 FROM FriendRequest f WHERE " +
+            "(f.userReceiveId = :userId AND f.userRequestId = :friendId AND f.status = 'ACCEPTED') OR " +
+            "(f.userReceiveId = :friendId AND f.userRequestId = :userId AND f.status = 'ACCEPTED')")
+    boolean isFriend(@Param("userId") Long userId, @Param("friendId") Long friendId);
+
     @Modifying
     @Query(value = "update friend_request set status = 'ACCEPTED' where user_request_id = ?1 and user_receive_id = ?2", nativeQuery = true)
     void acceptFriendRequest(Long userRequestId, Long userReceiveId);

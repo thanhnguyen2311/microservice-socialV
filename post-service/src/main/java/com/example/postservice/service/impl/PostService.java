@@ -61,4 +61,15 @@ public class PostService implements IPostService {
         PageRequest pageRequest = PageRequest.of(dto.getPageIndex(), dto.getPageSize(), Sort.by(Sort.Order.desc("createdDate")));
         return postRepository.findAllByUserIdOrderByCreatedDateDesc(Long.parseLong(dto.getUserId()), pageRequest).getContent();
     }
+
+    @Override
+    public BaseResponse<Object> findAllPostsFriendWall(GetUserPostDTO dto, BaseResponse rp) {
+        //check friendship
+        ResponseEntity<String> res = RestFactory.postUserService(Param.baseUserUrl, Param.FUNCTION_CHECK_FRIENDSHIP, dto);
+        rp = JsonFactory.fromJson(res.getBody(), BaseResponse.class);
+        if (rp.isSuccess()) {
+
+        }
+        return rp;
+    }
 }

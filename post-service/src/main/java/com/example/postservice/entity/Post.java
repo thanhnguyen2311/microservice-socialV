@@ -20,4 +20,10 @@ public class Post {
     private Date modifiedDate;
     @Enumerated(EnumType.STRING)
     private PostStatus status;
+    @Transient
+    private Integer check_user_like;
+    @Transient
+    private Integer countLike;
+    @Transient
+    private Integer countComment;
 }
