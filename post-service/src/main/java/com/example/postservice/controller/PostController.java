@@ -49,7 +49,7 @@ public class PostController {
     public BaseResponse<Object> getPostFriendWall(@RequestBody GetUserPostDTO dto) {
         BaseResponse<Object> response = new BaseResponse<>();
         try {
-
+            response = postService.findAllPostsFriendWall(dto, response);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return com.getErrorResponse(response);

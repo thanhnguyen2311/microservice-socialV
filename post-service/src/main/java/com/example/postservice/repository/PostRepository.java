@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface PostRepository extends MongoRepository<Post, Long> {
     Page<Post> findAllByUserIdOrderByCreatedDateDesc(Long userId, PageRequest pageRequest);
+    Page<Post> findAllByUserIdAndStatusInOrderByCreatedDateDesc(Long userId, List<String> statuses, PageRequest pageRequest);
 }
