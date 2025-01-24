@@ -4,6 +4,7 @@ import com.example.postservice.component.Common;
 import com.example.postservice.dto.BaseResponse;
 import com.example.postservice.dto.CreatePostDTO;
 import com.example.postservice.dto.GetUserPostDTO;
+import com.example.postservice.dto.UpdatePostDTO;
 import com.example.postservice.service.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -64,4 +65,18 @@ public class PostController {
         }
         return response;
     }
+
+    @PutMapping("/update")
+    public BaseResponse<Object> updatePost(@RequestBody UpdatePostDTO postDto) {
+        BaseResponse<Object> response = new BaseResponse<>();
+        try {
+            response = postService.update(postDto, response);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return com.getErrorResponse(response);
+        }
+        return response;
+
+    }
+
 }

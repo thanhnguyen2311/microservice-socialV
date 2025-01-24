@@ -54,7 +54,30 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public Post findById(long id) {
+    public BaseResponse<Object> update(UpdatePostDTO dto, BaseResponse rp) {
+        if (!dto.isValid()) {
+            rp.setCode("03");
+            rp.setMessage("Thong tin dau vao khong hop le");
+            return rp;
+        }
+        //check exist post
+        Optional<Post> post = postRepository.findById(dto.getId());
+        if (post.isPresent()) {
+            post.get().setContent(dto.getContent());
+            post.get().setImages(dto.getImages());
+            post.get().setStatus(PostStatus.getPostStatus(dto.getStatus()));
+            post.get().setModifiedDate(new Date());
+            postRepository.save(post.get());
+        } else {
+            rp.setCode("04");
+            rp.setMessage("Post doesn't exist");
+        }
+        return rp;
+    }
+
+
+    @Override
+    public Post findById(String id) {
         return postRepository.findById(id).orElse(null);
     }
 
