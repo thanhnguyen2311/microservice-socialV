@@ -19,4 +19,9 @@ public class RestFactory {
         RestTemplate restTemplate = buildTemplate();
         return restTemplate.postForEntity(url + fnc, request, String.class);
     }
+
+    public static String getUserService(String url, String fnc) {
+        RestTemplate restTemplate = buildTemplate();
+        return restTemplate.getForObject(url + fnc, String.class);
+    }
 }

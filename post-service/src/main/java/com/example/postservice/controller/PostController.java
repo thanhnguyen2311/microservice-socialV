@@ -36,8 +36,7 @@ public class PostController {
     public BaseResponse<Object> getAllByUser(@RequestBody GetUserPostDTO dto) {
         BaseResponse<Object> response = new BaseResponse<>();
         try {
-            List<Post> postList = postService.findAllByUserId(dto);
-            response.setData(postList);
+            response = postService.findAllByUserId(dto, response);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return com.getErrorResponse(response);

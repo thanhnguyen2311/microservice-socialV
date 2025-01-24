@@ -11,6 +11,7 @@ public interface IPostService {
     public BaseResponse<Object> save(CreatePostDTO dto, BaseResponse rp);
     public Post findById(long id);
     public void delete(Post post);
-    public List<Post> findAllByUserId(GetUserPostDTO dto);
+    public BaseResponse<Object> findAllByUserId(GetUserPostDTO dto, BaseResponse rp);
     public BaseResponse<Object> findAllPostsFriendWall(GetUserPostDTO dto, BaseResponse rp);
+    public BaseResponse<Object> findAllPostsNewFeed(GetUserPostDTO dto, BaseResponse rp);
 }

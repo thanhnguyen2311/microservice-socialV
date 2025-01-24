@@ -62,26 +62,11 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public List<Post> findAllByUserId(GetUserPostDTO dto) {
+    public BaseResponse<Object> findAllByUserId(GetUserPostDTO dto, BaseResponse rp) {
         PageRequest pageRequest = PageRequest.of(dto.getPageIndex(), dto.getPageSize(), Sort.by(Sort.Order.desc("createdDate")));
-        return postRepository.findAllByUserIdOrderByCreatedDateDesc(Long.parseLong(dto.getUserId()), pageRequest).getContent();
-    }
-
-    @Override
-    public BaseResponse<Object> findAllPostsFriendWall(GetUserPostDTO dto, BaseResponse rp) {
-        //check friendship
-        ResponseEntity<String> res = RestFactory.postUserService(Param.baseUserUrl, Param.FUNCTION_CHECK_FRIENDSHIP, dto);
-        BaseResponse<Object> coreRp = JsonFactory.fromJson(res.getBody(), BaseResponse.class);
-        //get list post
-        List<String> statusList = new ArrayList<>();
-        statusList.add("PUBLIC");
-        if (coreRp.isSuccess()) {
-            statusList.add("FRIENDS");
-        }
-        PageRequest pageRequest = PageRequest.of(dto.getPageIndex(), dto.getPageSize(), Sort.by(Sort.Order.desc("createdDate")));
-        List<Post> posts = postRepository.findAllByUserIdAndStatusInOrderByCreatedDateDesc(Long.parseLong(dto.getFriendId()), statusList, pageRequest).getContent();
+        List<Post> posts = postRepository.findAllByUserIdOrderByCreatedDateDesc(Long.parseLong(dto.getUserId()), pageRequest).getContent();
         Set<String> postIds = posts.stream().map(Post::getId).collect(Collectors.toSet());
-        //create 3 thread for: count like, count comment, check user like
+        //create 2 thread for: count like, count comment, check user like
         ExecutorService executor = Executors.newFixedThreadPool(2);
         Callable<List<PostStatDTO>> task1 = () -> countLikeAndCommentListPost(postIds);
         Callable<List<CheckUserLikeDTO>> task2 = () -> checkUserLikeListPost(postIds, Long.parseLong(dto.getUserId()));
@@ -110,6 +95,61 @@ public class PostService implements IPostService {
         });
         rp.setData(posts);
         return rp;
+    }
+
+    @Override
+    public BaseResponse<Object> findAllPostsFriendWall(GetUserPostDTO dto, BaseResponse rp) {
+        //check friendship
+        ResponseEntity<String> res = RestFactory.postUserService(Param.baseUserUrl, Param.FUNCTION_CHECK_FRIENDSHIP, dto);
+        BaseResponse<Object> coreRp = JsonFactory.fromJson(res.getBody(), BaseResponse.class);
+        //get list post
+        List<String> statusList = new ArrayList<>();
+        statusList.add("PUBLIC");
+        if (coreRp.isSuccess()) {
+            statusList.add("FRIENDS");
+        }
+        PageRequest pageRequest = PageRequest.of(dto.getPageIndex(), dto.getPageSize(), Sort.by(Sort.Order.desc("createdDate")));
+        List<Post> posts = postRepository.findAllByUserIdAndStatusInOrderByCreatedDateDesc(Long.parseLong(dto.getFriendId()), statusList, pageRequest).getContent();
+        Set<String> postIds = posts.stream().map(Post::getId).collect(Collectors.toSet());
+        //create 2 thread for: count like, count comment, check user like
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        Callable<List<PostStatDTO>> task1 = () -> countLikeAndCommentListPost(postIds);
+        Callable<List<CheckUserLikeDTO>> task2 = () -> checkUserLikeListPost(postIds, Long.parseLong(dto.getUserId()));
+        Future<List<PostStatDTO>> future1 = executor.submit(task1);
+        Future<List<CheckUserLikeDTO>> future2 = executor.submit(task2);
+        List<PostStatDTO> postStatDTOList = null;
+        List<CheckUserLikeDTO> checkUserLikeDTOS = null;
+        try {
+            postStatDTOList = future1.get();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            checkUserLikeDTOS = future2.get();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        Map<String, PostStatDTO> postStatDTOMap = postStatDTOList.stream().collect(Collectors.toMap(PostStatDTO::getPostId, postStatDTO -> postStatDTO));
+        Map<String, CheckUserLikeDTO> checkUserLikeDTOMap = checkUserLikeDTOS.stream().collect(Collectors.toMap(CheckUserLikeDTO::getPostId, checkUserLikeDTO -> checkUserLikeDTO));
+        posts.stream().forEach(post -> {
+            PostStatDTO postStatDTO = postStatDTOMap.get(post.getId());
+            CheckUserLikeDTO checkUserLikeDTO = checkUserLikeDTOMap.get(post.getId());
+            post.setCountLike(postStatDTO.getLikeCount());
+            post.setCountComment(postStatDTO.getCommentCount());
+            post.setCheck_user_like(checkUserLikeDTO.getHasLiked());
+        });
+        rp.setData(posts);
+        return rp;
+    }
+
+    @Override
+    public BaseResponse<Object> findAllPostsNewFeed(GetUserPostDTO dto, BaseResponse rp) {
+        //get list friend
+        String res = RestFactory.getUserService(Param.baseUserUrl, Param.FUNCTION_GET_LIST_FRIEND + dto.getUserId());
+        BaseResponse<List<FriendListDTO>> coreRp = JsonFactory.fromJson(res, BaseResponse.class);
+        List<FriendListDTO> friendIdListDTOList = coreRp.getData();
+
+        return null;
     }
 
     private List<PostStatDTO> countLikeAndCommentListPost(Set<String> postIds) {
