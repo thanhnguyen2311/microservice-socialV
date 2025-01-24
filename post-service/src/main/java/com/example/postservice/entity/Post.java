@@ -1,5 +1,6 @@
 package com.example.postservice.entity;
 
+import com.example.postservice.dto.UserInfo;
 import com.example.postservice.enumm.PostStatus;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -26,4 +27,6 @@ public class Post {
     private Integer countLike;
     @Transient
     private Integer countComment;
+    @Transient
+    private UserInfo userInfo;
 }
