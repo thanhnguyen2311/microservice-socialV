@@ -82,8 +82,15 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public void delete(Post post) {
-        postRepository.delete(post);
+    public BaseResponse<Object> delete(String id, BaseResponse rp) {
+        Optional<Post> post = postRepository.findById(id);
+        if (post.isPresent()) {
+            postRepository.delete(post.get());
+        } else {
+            rp.setCode("04");
+            rp.setMessage("Post doesn't exist");
+        }
+        return rp;
     }
 
     @Override

@@ -76,7 +76,17 @@ public class PostController {
             return com.getErrorResponse(response);
         }
         return response;
-
     }
 
+    @DeleteMapping("/delete/{id}")
+    public BaseResponse<Object> deletePost(@PathVariable String id) {
+        BaseResponse<Object> response = new BaseResponse<>();
+        try {
+            response = postService.delete(id, response);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return com.getErrorResponse(response);
+        }
+        return response;
+    }
 }
