@@ -4,6 +4,7 @@ import com.example.postservice.dto.BaseResponse;
 import com.example.postservice.dto.CreateCommentDTO;
 import com.example.postservice.dto.UpdateCommentDTO;
 import com.example.postservice.entity.Comment;
+import com.example.postservice.entity.CommentLike;
 import com.example.postservice.enumm.CommentType;
 import com.example.postservice.repository.ICommentRepository;
 import com.example.postservice.service.ICommentService;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -73,6 +75,12 @@ public class CommentService implements ICommentService {
             rp.setMessage("Comment doesn't exist");
         }
         return rp;
+    }
+
+    @Override
+    public List<Long> findAllCommentId() {
+        return commentRepository.findAll().stream().map(Comment::getId)
+                .toList();
     }
 
 

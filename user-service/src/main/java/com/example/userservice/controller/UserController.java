@@ -79,4 +79,16 @@ public class UserController {
         }
         return response;
     }
+
+    @GetMapping("/info/{id}")
+    public BaseResponse<Object> getUserInfoById(@PathVariable Long id) {
+        BaseResponse<Object> response = new BaseResponse<>();
+        try {
+            response.setData(userService.findUserInfoById(id));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return com.getErrorResponse(response);
+        }
+        return response;
+    }
 }

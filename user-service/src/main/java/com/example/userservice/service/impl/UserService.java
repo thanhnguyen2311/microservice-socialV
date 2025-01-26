@@ -1,6 +1,8 @@
 package com.example.userservice.service.impl;
 
 import com.example.userservice.component.JsonFactory;
+import com.example.userservice.dto.UserInfoDTO;
+import com.example.userservice.dto.UserProjectionDTO;
 import com.example.userservice.entity.SocialVUser;
 import com.example.userservice.repository.IUserRepository;
 import com.example.userservice.repository.RedisComponent;
@@ -45,5 +47,18 @@ public class UserService implements IUserService {
     @Override
     public boolean checkExistUser(String id) {
         return userRepository.existsSocialVUserById(Long.parseLong(id));
+    }
+
+    @Override
+    public UserInfoDTO findUserInfoById(Long id) {
+        String cacheUser = cache.get("userInfo-" + id);
+        if (cacheUser != null) {
+            return JsonFactory.fromJson(cacheUser, UserInfoDTO.class);
+        }
+        UserInfoDTO user = userRepository.findUserInfoById(id);
+        if (user != null) {
+            cache.save("userInfo-" + id, JsonFactory.toJson(user));
+        }
+        return user;
     }
 }

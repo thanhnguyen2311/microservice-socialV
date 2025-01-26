@@ -220,6 +220,12 @@ public class PostService implements IPostService {
         return rp;
     }
 
+    @Override
+    public BaseResponse<Object> getPostDetail(String postId, BaseResponse rp) {
+
+        return null;
+    }
+
     private List<PostStatDTO> countLikeAndCommentListPost(Set<String> postIds) {
         return postLikeRepository.findPostStatsByIds(postIds);
     }

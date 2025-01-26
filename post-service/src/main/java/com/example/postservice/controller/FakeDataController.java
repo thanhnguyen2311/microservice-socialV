@@ -4,9 +4,11 @@ import com.example.postservice.dto.BaseResponse;
 import com.example.postservice.dto.CreateCommentDTO;
 import com.example.postservice.dto.CreatePostDTO;
 import com.example.postservice.entity.Comment;
+import com.example.postservice.entity.CommentLike;
 import com.example.postservice.entity.Post;
 import com.example.postservice.entity.PostLike;
 import com.example.postservice.enumm.CommentType;
+import com.example.postservice.service.ICommentLikeService;
 import com.example.postservice.service.ICommentService;
 import com.example.postservice.service.IPostService;
 import com.example.postservice.service.IPostLikeService;
@@ -81,6 +83,8 @@ public class FakeDataController {
     private ICommentService commentService;
     @Autowired
     private MongoTemplate mongoTemplate;
+    @Autowired
+    private ICommentLikeService commentLikeService;
 
     @PostMapping("/gen-post")
     public String generatePost() {
@@ -127,6 +131,23 @@ public class FakeDataController {
             dto.setCommentType("PARENT_CMT");
             dto.setContent(faker.lorem().sentence(10));
             commentService.save(dto, response);
+        }
+        return "done";
+    }
+
+    @PostMapping("/gen-comment-like")
+    public String generateCommentLike() {
+        Random random = new Random();
+
+        List<Long> commentIds = commentService.findAllCommentId();
+        for (int i = 0; i < 50000; i++) {
+            CommentLike commentLike = new CommentLike();
+            commentLike.setUserId((long) faker.number().numberBetween(1, 100));
+            commentLike.setCreatedDate(new Date());
+            commentLike.setCommentId(commentIds.get(random.nextInt(commentIds.size())));
+            if (!commentLikeService.existsByCommentIdAndUserId(commentLike.getCommentId(), commentLike.getUserId())) {
+                commentLikeService.save(commentLike);
+            }
         }
         return "done";
     }

@@ -14,4 +14,5 @@ public interface IPostService {
     public BaseResponse<Object> findAllByUserId(GetUserPostDTO dto, BaseResponse rp);
     public BaseResponse<Object> findAllPostsFriendWall(GetUserPostDTO dto, BaseResponse rp);
     public BaseResponse<Object> findAllPostsNewFeed(GetUserPostDTO dto, BaseResponse rp);
+    public BaseResponse<Object> getPostDetail(String postId, BaseResponse rp);
 }

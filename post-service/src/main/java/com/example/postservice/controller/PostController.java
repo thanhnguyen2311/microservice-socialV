@@ -89,4 +89,16 @@ public class PostController {
         }
         return response;
     }
+
+    @GetMapping("/detail/{id}")
+    public BaseResponse<Object> getPostDetail(@PathVariable String id) {
+        BaseResponse<Object> response = new BaseResponse<>();
+        try {
+            response = postService.getPostDetail(id, response);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return com.getErrorResponse(response);
+        }
+        return response;
+    }
 }
