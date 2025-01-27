@@ -10,6 +10,9 @@ import com.example.userservice.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Set;
+
 @Service
 public class UserService implements IUserService {
     @Autowired
@@ -60,5 +63,10 @@ public class UserService implements IUserService {
             cache.save("userInfo-" + id, JsonFactory.toJson(user));
         }
         return user;
+    }
+
+    @Override
+    public List<UserInfoDTO> findUserInfoByIds(Set<Long> ids) {
+        return userRepository.findUserInfoByIds(ids);
     }
 }

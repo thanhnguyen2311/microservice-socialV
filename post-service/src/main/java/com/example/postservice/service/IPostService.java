@@ -1,9 +1,6 @@
 package com.example.postservice.service;
 
-import com.example.postservice.dto.BaseResponse;
-import com.example.postservice.dto.CreatePostDTO;
-import com.example.postservice.dto.GetUserPostDTO;
-import com.example.postservice.dto.UpdatePostDTO;
+import com.example.postservice.dto.*;
 import com.example.postservice.entity.Post;
 
 public interface IPostService {
@@ -14,5 +11,5 @@ public interface IPostService {
     public BaseResponse<Object> findAllByUserId(GetUserPostDTO dto, BaseResponse rp);
     public BaseResponse<Object> findAllPostsFriendWall(GetUserPostDTO dto, BaseResponse rp);
     public BaseResponse<Object> findAllPostsNewFeed(GetUserPostDTO dto, BaseResponse rp);
-    public BaseResponse<Object> getPostDetail(String postId, BaseResponse rp);
+    public BaseResponse<Object> getPostDetail(PostDetailRq rq, BaseResponse rp);
 }

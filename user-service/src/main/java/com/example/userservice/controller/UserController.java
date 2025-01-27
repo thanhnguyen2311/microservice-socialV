@@ -3,11 +3,14 @@ package com.example.userservice.controller;
 import com.example.userservice.component.Common;
 import com.example.userservice.dto.BaseResponse;
 import com.example.userservice.dto.CheckUserDTO;
+import com.example.userservice.dto.InfoListUserRq;
 import com.example.userservice.entity.SocialVUser;
 import com.example.userservice.service.impl.UserService;
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @RestController
 @RequestMapping("/user")
@@ -85,6 +88,18 @@ public class UserController {
         BaseResponse<Object> response = new BaseResponse<>();
         try {
             response.setData(userService.findUserInfoById(id));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return com.getErrorResponse(response);
+        }
+        return response;
+    }
+
+    @PostMapping("/info-list-user")
+    public BaseResponse<Object> getUserInfoByIds(@RequestBody InfoListUserRq rq) {
+        BaseResponse<Object> response = new BaseResponse<>();
+        try {
+            response.setData(userService.findUserInfoByIds(rq.getUserIds()));
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return com.getErrorResponse(response);

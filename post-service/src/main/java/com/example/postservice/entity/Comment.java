@@ -1,5 +1,6 @@
 package com.example.postservice.entity;
 
+import com.example.postservice.dto.UserInfo;
 import com.example.postservice.enumm.CommentType;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -22,4 +23,10 @@ public class Comment {
     private CommentType type;
     @Column(name = "PARENT_COMMENT_ID")
     private Long parentCommentId;
+    @Transient
+    private Long countLike;
+    @Transient
+    private Integer check_user_like;
+    @Transient
+    private UserInfo userInfo;
 }

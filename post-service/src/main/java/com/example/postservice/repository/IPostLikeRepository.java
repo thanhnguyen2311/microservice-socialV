@@ -40,5 +40,6 @@ public interface IPostLikeRepository extends JpaRepository<PostLike, Long> {
             "                   ON p.post_id = l.post_id AND l.user_id = :userId;", nativeQuery = true)
     List<CheckUserLikeDTO> findCheckUserLikesByPostIdAndUserId(@Param("postIds") Set<String> postIds, @Param("userId") Long userId);
 
+    Integer countAllByPostId(String postId);
 
 }

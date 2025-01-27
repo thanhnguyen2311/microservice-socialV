@@ -6,6 +6,7 @@ import com.example.postservice.component.RestFactory;
 import com.example.postservice.dto.*;
 import com.example.postservice.entity.Post;
 import com.example.postservice.enumm.PostStatus;
+import com.example.postservice.repository.ICommentRepository;
 import com.example.postservice.repository.IPostLikeRepository;
 import com.example.postservice.repository.PostRepository;
 import com.example.postservice.service.IPostService;
@@ -30,6 +31,8 @@ public class PostService implements IPostService {
     private PostRepository postRepository;
     @Autowired
     private IPostLikeRepository postLikeRepository;
+    @Autowired
+    private ICommentRepository commentRepository;
 
     @Override
     public BaseResponse<Object> save(CreatePostDTO dto, BaseResponse rp) {
@@ -198,10 +201,6 @@ public class PostService implements IPostService {
         List<CheckUserLikeDTO> checkUserLikeDTOS = null;
         try {
             postStatDTOList = future1.get();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        try {
             checkUserLikeDTOS = future2.get();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -221,9 +220,34 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public BaseResponse<Object> getPostDetail(String postId, BaseResponse rp) {
-
-        return null;
+    public BaseResponse<Object> getPostDetail(PostDetailRq rq, BaseResponse rp) {
+        Post post = postRepository.findById(rq.getPostId()).orElse(null);
+        if (post != null) {
+            ExecutorService executor = Executors.newFixedThreadPool(4);
+            Callable<UserInfo> task = () -> {
+                String res = RestFactory.getUserService(Param.baseUserUrl, Param.FUNCTION_GET_USER_INFO + post.getUserId());
+                Type type = new TypeToken<BaseResponse<UserInfo>>() {}.getType();
+                BaseResponse<UserInfo> coreRp = JsonFactory.fromJson(res, type);
+                return coreRp.getData();
+            };
+            Callable<Integer> task1 = () -> postLikeRepository.countAllByPostId(rq.getPostId());
+            Callable<Integer> task2 = () -> commentRepository.countAllByPostId(rq.getPostId());
+            Callable<Boolean> task3 = () -> postLikeRepository.existsByPostIdAndUserId(rq.getPostId(), Long.parseLong(rq.getUserId()));
+            Future<UserInfo> future = executor.submit(task);
+            Future<Integer> future1 = executor.submit(task1);
+            Future<Integer> future2 = executor.submit(task2);
+            Future<Boolean> future3 = executor.submit(task3);
+            try {
+                post.setCountLike(future1.get());
+                post.setCountComment(future2.get());
+                post.setCheck_user_like(future3.get() ? 1: 0);
+                post.setUserInfo(future.get());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            rp.setData(post);
+        }
+        return rp;
     }
 
     private List<PostStatDTO> countLikeAndCommentListPost(Set<String> postIds) {

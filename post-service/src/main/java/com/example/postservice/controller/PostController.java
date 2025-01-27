@@ -1,10 +1,8 @@
 package com.example.postservice.controller;
 
 import com.example.postservice.component.Common;
-import com.example.postservice.dto.BaseResponse;
-import com.example.postservice.dto.CreatePostDTO;
-import com.example.postservice.dto.GetUserPostDTO;
-import com.example.postservice.dto.UpdatePostDTO;
+import com.example.postservice.dto.*;
+import com.example.postservice.service.ICommentService;
 import com.example.postservice.service.IPostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
     @Autowired
     private IPostService postService;
+    @Autowired
+    private ICommentService commentService;
     @Autowired
     private Common com;
 
@@ -90,11 +90,23 @@ public class PostController {
         return response;
     }
 
-    @GetMapping("/detail/{id}")
-    public BaseResponse<Object> getPostDetail(@PathVariable String id) {
+    @PostMapping("/detail")
+    public BaseResponse<Object> getPostDetail(@RequestBody PostDetailRq rq) {
         BaseResponse<Object> response = new BaseResponse<>();
         try {
-            response = postService.getPostDetail(id, response);
+            response = postService.getPostDetail(rq, response);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return com.getErrorResponse(response);
+        }
+        return response;
+    }
+
+    @PostMapping("/detail/list-comment")
+    public BaseResponse<Object> getPostDetailListComment(@RequestBody PostDetailRq rq) {
+        BaseResponse<Object> response = new BaseResponse<>();
+        try {
+            response = commentService.getListCommentPostDetail(rq, response);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return com.getErrorResponse(response);
