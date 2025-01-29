@@ -26,4 +26,6 @@ public interface ICommentLikeRepository extends JpaRepository<CommentLike, Long>
             "WHERE cl1.commentId IN :commentIds " +
             "GROUP BY cl1.commentId")
     List<CheckUserLikeCommentDTO> checkLikeListComment(@Param("commentIds") Set<Long> commentIds, @Param("userId") Long userId);
+
+    List<CommentLike> findAllByCommentId(Long commentId);
 }

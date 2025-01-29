@@ -5,7 +5,6 @@ import com.example.postservice.component.JsonFactory;
 import com.example.postservice.component.RestFactory;
 import com.example.postservice.dto.*;
 import com.example.postservice.entity.Comment;
-import com.example.postservice.entity.CommentLike;
 import com.example.postservice.enumm.CommentType;
 import com.example.postservice.repository.ICommentLikeRepository;
 import com.example.postservice.repository.ICommentRepository;
@@ -13,6 +12,7 @@ import com.example.postservice.service.ICommentService;
 import com.google.gson.reflect.TypeToken;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -95,7 +95,8 @@ public class CommentService implements ICommentService {
 
     @Override
     public BaseResponse<Object> getListCommentPostDetail(PostDetailRq rq, BaseResponse rp) {
-        List<Comment> comments = commentRepository.findAllByPostId(rq.getPostId());
+        PageRequest pageRequest = PageRequest.of(rq.getPageIndex(), rq.getPageSize());
+        List<Comment> comments = commentRepository.findAllByPostId(rq.getPostId(), pageRequest).getContent();
         Set<Long> commentIds = comments.stream().map(Comment::getId).collect(Collectors.toSet());
         Set<Long> userIds = comments.stream().map(Comment::getUserId).collect(Collectors.toSet());
         //create 2 thread for: count like comment, check like, info user comment

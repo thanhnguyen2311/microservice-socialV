@@ -4,9 +4,14 @@ import com.example.postservice.component.Common;
 import com.example.postservice.dto.BaseResponse;
 import com.example.postservice.dto.CreateCommentDTO;
 import com.example.postservice.dto.UpdateCommentDTO;
+import com.example.postservice.dto.UserInfo;
 import com.example.postservice.service.ICommentService;
+import com.example.postservice.service.impl.CommentLikeService;
+import com.example.postservice.service.impl.PostLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/interaction")
@@ -15,6 +20,10 @@ public class InteractionController {
     private Common com;
     @Autowired
     private ICommentService commentService;
+    @Autowired
+    private PostLikeService postLikeService;
+    @Autowired
+    private CommentLikeService commentLikeService;
 
     @PostMapping("/comment")
     public BaseResponse<Object> comment(@RequestBody CreateCommentDTO dto) {
@@ -45,6 +54,32 @@ public class InteractionController {
         BaseResponse<Object> response = new BaseResponse<>();
         try {
             response = commentService.update(dto, response);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return com.getErrorResponse(response);
+        }
+        return response;
+    }
+
+    @GetMapping("/list-user-like-post/{id}")
+    public BaseResponse<Object> getUserLikePost(@PathVariable String id) {
+        BaseResponse<Object> response = new BaseResponse<>();
+        try {
+            List<UserInfo> listUserLikePost = postLikeService.getListUserLikePost(id);
+            response.setData(listUserLikePost);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return com.getErrorResponse(response);
+        }
+        return response;
+    }
+
+    @GetMapping("/list-user-like-comment/{id}")
+    public BaseResponse<Object> getUserLikeComment(@PathVariable Long id) {
+        BaseResponse<Object> response = new BaseResponse<>();
+        try {
+            List<UserInfo> listUserLikePost = commentLikeService.findByCommentId(id);
+            response.setData(listUserLikePost);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return com.getErrorResponse(response);

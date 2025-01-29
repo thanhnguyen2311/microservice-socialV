@@ -42,4 +42,5 @@ public interface IPostLikeRepository extends JpaRepository<PostLike, Long> {
 
     Integer countAllByPostId(String postId);
 
+    List<PostLike> findAllByPostId(String postId);
 }
