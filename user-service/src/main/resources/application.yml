@@ -1,39 +1,9 @@
 server:
   port: 8080
 spring:
-  data:
-    redis:
-      host: localhost
-      port: 6379
-      # password: your_password
-      timeout: 10000ms
-      connect-timeout: 10000ms
-      client-type: lettuce
-      lettuce:
-        pool:
-          max-active: 8       # S? connection t?i ?a
-          max-idle: 8         # S? connection idle t?i ?a
-          min-idle: 0         # S? connection idle t?i thi?u
-          max-wait: -1ms      # Th?i gian ch? t?i ?a khi pool c?n connection
-
-  datasource:
-    url: jdbc:mysql://localhost:3306/accountSocialV
-    username: root
-    password: 12345678
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
-        show_sql: true        # Hi?n th? SQL trong logs
-        format_sql: true      # Format SQL cho d? ??c
-        use-new-id-generator-mappings: true # T??ng th�ch v?i c?u h�nh ID m?i
-    generate-ddl: true
-    hibernate:
-      ddl-auto: update
-
-logging:
-  level:
-    org.hibernate.SQL: DEBUG                               # Log SQL query
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE   # Log binding values
+  application:
+    name: user-service
+  profiles:
+    active: dev
+  config:
+    import: "optional:configserver:http://localhost:8071/"
