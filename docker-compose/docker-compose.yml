@@ -1,0 +1,46 @@
+services:
+  configserver:
+    image: "thanhcometodream/config-server:s1"
+    container_name: config-server-ms
+    ports:
+      - "8071:8071"
+    healthcheck:
+      test: "curl --fail --silent localhost:8071/actuator/health/readiness | grep UP || exit 1"
+      interval: 3s
+      timeout: 5s
+      retries: 2
+      start_period: 3s
+    extends:
+      file: common-config.yml
+      service: microservice-base-config
+
+  user-service:
+    image: "thanhcometodream/user-service:s1"
+    container_name: user-service-ms
+    ports:
+      - "8080:8080"
+    depends_on:
+      configserver:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: "user-service"
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+
+  post-service:
+    image: "thanhcometodream/post-service:s1"
+    container_name: post-service-ms
+    ports:
+      - "8090:8090"
+    depends_on:
+      configserver:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: "post-service"
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+networks:
+  socialVNetwork:
+    driver: "bridge"

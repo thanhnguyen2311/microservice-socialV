@@ -1,0 +1,23 @@
+services:
+  network-deploy-service:
+    networks:
+      - socialVNetwork
+
+  microservice-base-config:
+    extends:
+      service: network-deploy-service
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+#    environment:
+#      SPRING_RABBITMQ_HOST: "rabbit"
+
+  microservice-configserver-config:
+    extends:
+      service: microservice-base-config
+    environment:
+      SPRING_PROFILES_ACTIVE: default
+      CONFIG_SERVER_URL: http://configserver:8071/
+      SPRING_CONFIG_IMPORT: configserver:http://configserver:8071/
+      SPRING_CLOUD_CONFIG_URI: http://configserver:8071/

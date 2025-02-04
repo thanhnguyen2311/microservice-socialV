@@ -6,4 +6,10 @@ spring:
   profiles:
     active: dev
   config:
-    import: "optional:configserver:http://localhost:8071/"
+    import: "optional:configserver:${CONFIG_SERVER_URL:http://localhost:8071/}"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
