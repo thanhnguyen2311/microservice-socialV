@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="898cb262-d019-45a1-b04b-792913374e35" name="Changes" comment="deploy bằng dockerfile và xây dựng docker compose">
-      <change afterPath="$PROJECT_DIR$/config-server/src/main/resources/config/eurekaserver.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="898cb262-d019-45a1-b04b-792913374e35" name="Changes" comment="add service discovery and registration:eureka">
+      <change afterPath="$PROJECT_DIR$/eurekaserver/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/post-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/post-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/src/main/resources/config/eurekaserver.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config-server/src/main/resources/config/eurekaserver.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose/common-config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose/common-config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/post-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/post-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/user-service/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -89,7 +87,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.PostServiceApplication">
+  <component name="RunManager" selected="Docker.docker-compose: Compose Deployment">
     <configuration name="ConfigServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="config-server" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.configserver.ConfigServerApplication" />
@@ -128,9 +126,23 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="docker-compose.post-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="post-service" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose/docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Docker.docker-compose: Compose Deployment" />
+        <item itemvalue="Docker.docker-compose.post-service: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
@@ -155,7 +167,8 @@
       <workItem from="1738674935759" duration="9599000" />
       <workItem from="1739095353629" duration="476000" />
       <workItem from="1739095858166" duration="3148000" />
-      <workItem from="1739106324244" duration="1391000" />
+      <workItem from="1739106324244" duration="2396000" />
+      <workItem from="1739286350893" duration="2861000" />
     </task>
     <task id="LOCAL-00001" summary="deploy bằng dockerfile và xây dựng docker compose">
       <option name="closed" value="true" />
