@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: "gatewayserver"
+  config:
+    import: "optional:configserver:${CONFIG_SERVER_URL:http://localhost:8071/}"
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lowerCaseServiceId: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      access: unrestricted
+  info:
+    env:
+      enabled: true
+
+info:
+  app:
+    name: "gatewayserver"
+    description: "API Gateway for microservice SocialV"
+    version: "1.0.0"
