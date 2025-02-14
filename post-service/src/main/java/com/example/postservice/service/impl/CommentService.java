@@ -10,6 +10,7 @@ import com.example.postservice.repository.ICommentLikeRepository;
 import com.example.postservice.repository.ICommentRepository;
 import com.example.postservice.service.ICommentService;
 import com.google.gson.reflect.TypeToken;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +27,7 @@ import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @Transactional
 public class CommentService implements ICommentService {
     @Autowired
@@ -120,7 +122,7 @@ public class CommentService implements ICommentService {
             checkUserLikeCommentDTOS = future2.get();
             userInfoList = future.get();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
         }
         Map<Long, Long> commentStatDTOMap = commentStatDTOS.stream().collect(Collectors.toMap(CommentStatDTO::getCommentId, CommentStatDTO::getCountLike));
         Map<Long, Integer> checkUserLikeCommentDTOMap = checkUserLikeCommentDTOS.stream().collect(Collectors.toMap(CheckUserLikeCommentDTO::getCommentId, CheckUserLikeCommentDTO::getHasLiked));

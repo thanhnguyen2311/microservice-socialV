@@ -7,12 +7,14 @@ import com.example.userservice.dto.InfoListUserRq;
 import com.example.userservice.entity.SocialVUser;
 import com.example.userservice.service.impl.UserService;
 import com.github.javafaker.Faker;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
 @RestController
+@Slf4j
 @RequestMapping("/user")
 public class UserController {
     @Autowired
@@ -29,7 +31,7 @@ public class UserController {
             Iterable<SocialVUser> users = userService.findAll();
             response.setData(users);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(response);
         }
         return response;
@@ -62,7 +64,7 @@ public class UserController {
         try {
             response.setData(userService.findById(id));
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(response);
         }
         return response;
@@ -77,7 +79,7 @@ public class UserController {
                 response.setMessage("User not found");
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(response);
         }
         return response;
@@ -89,7 +91,7 @@ public class UserController {
         try {
             response.setData(userService.findUserInfoById(id));
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(response);
         }
         return response;
@@ -101,7 +103,7 @@ public class UserController {
         try {
             response.setData(userService.findUserInfoByIds(rq.getUserIds()));
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(response);
         }
         return response;

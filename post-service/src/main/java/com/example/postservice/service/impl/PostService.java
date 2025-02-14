@@ -11,6 +11,7 @@ import com.example.postservice.repository.IPostLikeRepository;
 import com.example.postservice.repository.PostRepository;
 import com.example.postservice.service.IPostService;
 import com.google.gson.reflect.TypeToken;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -26,6 +27,7 @@ import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class PostService implements IPostService {
     @Autowired
     private PostRepository postRepository;
@@ -112,12 +114,12 @@ public class PostService implements IPostService {
         try {
             postStatDTOList = future1.get();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
         }
         try {
             checkUserLikeDTOS = future2.get();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
         }
         Map<String, PostStatDTO> postStatDTOMap = postStatDTOList.stream().collect(Collectors.toMap(PostStatDTO::getPostId, postStatDTO -> postStatDTO));
         Map<String, CheckUserLikeDTO> checkUserLikeDTOMap = checkUserLikeDTOS.stream().collect(Collectors.toMap(CheckUserLikeDTO::getPostId, checkUserLikeDTO -> checkUserLikeDTO));
@@ -157,12 +159,12 @@ public class PostService implements IPostService {
         try {
             postStatDTOList = future1.get();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
         }
         try {
             checkUserLikeDTOS = future2.get();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
         }
         Map<String, PostStatDTO> postStatDTOMap = postStatDTOList.stream().collect(Collectors.toMap(PostStatDTO::getPostId, postStatDTO -> postStatDTO));
         Map<String, CheckUserLikeDTO> checkUserLikeDTOMap = checkUserLikeDTOS.stream().collect(Collectors.toMap(CheckUserLikeDTO::getPostId, checkUserLikeDTO -> checkUserLikeDTO));
@@ -203,7 +205,7 @@ public class PostService implements IPostService {
             postStatDTOList = future1.get();
             checkUserLikeDTOS = future2.get();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
         }
         Map<String, PostStatDTO> postStatDTOMap = postStatDTOList.stream().collect(Collectors.toMap(PostStatDTO::getPostId, postStatDTO -> postStatDTO));
         Map<String, CheckUserLikeDTO> checkUserLikeDTOMap = checkUserLikeDTOS.stream().collect(Collectors.toMap(CheckUserLikeDTO::getPostId, checkUserLikeDTO -> checkUserLikeDTO));
@@ -243,7 +245,7 @@ public class PostService implements IPostService {
                 post.setCheck_user_like(future3.get() ? 1: 0);
                 post.setUserInfo(future.get());
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                log.info(e.getMessage());
             }
             rp.setData(post);
         }

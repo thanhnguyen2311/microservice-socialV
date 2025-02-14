@@ -7,6 +7,7 @@ import com.example.userservice.entity.SocialVUser;
 import com.example.userservice.repository.IUserRepository;
 import com.example.userservice.repository.RedisComponent;
 import com.example.userservice.service.IUserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
+@Slf4j
 public class UserService implements IUserService {
     @Autowired
     private IUserRepository userRepository;
@@ -29,7 +31,7 @@ public class UserService implements IUserService {
     public SocialVUser findById(Long id) {
         String cacheUser = cache.get("userInfo-" + id);
         if (cacheUser != null) {
-            System.out.println("lay tu cache");
+            log.info("lay tu cache");
             return JsonFactory.fromJson(cacheUser, SocialVUser.class);
         }
         SocialVUser user = userRepository.findById(id).orElse(null);

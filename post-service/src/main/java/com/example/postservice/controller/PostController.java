@@ -4,10 +4,12 @@ import com.example.postservice.component.Common;
 import com.example.postservice.dto.*;
 import com.example.postservice.service.ICommentService;
 import com.example.postservice.service.IPostService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Slf4j
 @RequestMapping("/post")
 public class PostController {
     @Autowired
@@ -23,7 +25,7 @@ public class PostController {
         try {
             response = postService.save(postDto, response);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(response);
         }
         return response;
@@ -36,7 +38,7 @@ public class PostController {
         try {
             response = postService.findAllByUserId(dto, response);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(response);
         }
         return response;
@@ -48,7 +50,7 @@ public class PostController {
         try {
             response = postService.findAllPostsFriendWall(dto, response);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(response);
         }
         return response;
@@ -60,7 +62,7 @@ public class PostController {
         try {
             response = postService.findAllPostsNewFeed(dto, response);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(response);
         }
         return response;
@@ -72,7 +74,7 @@ public class PostController {
         try {
             response = postService.update(postDto, response);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(response);
         }
         return response;
@@ -84,7 +86,7 @@ public class PostController {
         try {
             response = postService.delete(id, response);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(response);
         }
         return response;
@@ -96,7 +98,7 @@ public class PostController {
         try {
             response = postService.getPostDetail(rq, response);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(response);
         }
         return response;
@@ -108,7 +110,7 @@ public class PostController {
         try {
             response = commentService.getListCommentPostDetail(rq, response);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(response);
         }
         return response;
