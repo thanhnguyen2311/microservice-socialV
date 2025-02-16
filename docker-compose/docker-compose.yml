@@ -39,6 +39,12 @@ services:
     container_name: user-service-ms
     ports:
       - "8080:8080"
+    healthcheck:
+      test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
+      interval: 9s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
     depends_on:
       configserver:
         condition: service_healthy
@@ -55,6 +61,12 @@ services:
     container_name: post-service-ms
     ports:
       - "8090:8090"
+    healthcheck:
+      test: "curl --fail --silent localhost:8090/actuator/health/readiness | grep UP || exit 1"
+      interval: 9s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
     depends_on:
       configserver:
         condition: service_healthy
@@ -62,6 +74,22 @@ services:
         condition: service_healthy
     environment:
       SPRING_APPLICATION_NAME: "post-service"
+    extends:
+      file: common-config.yml
+      service: microservice-eureka-config
+
+  gatewayserver:
+    image: "thanhcometodream/gateway-server:s1"
+    container_name: gateway-server-ms
+    ports:
+      - "8072:8072"
+    depends_on:
+      user-service:
+        condition: service_healthy
+      post-service:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: "gatewayserver"
     extends:
       file: common-config.yml
       service: microservice-eureka-config
