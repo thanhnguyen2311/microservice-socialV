@@ -27,3 +27,9 @@ info:
     name: "gatewayserver"
     description: "API Gateway for microservice SocialV"
     version: "1.0.0"
+
+logging:
+  level:
+    com:
+      example:
+        gatewayserver: DEBUG

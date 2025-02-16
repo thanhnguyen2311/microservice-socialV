@@ -37,3 +37,6 @@ logging:
   level:
     org.hibernate.SQL: DEBUG                               # Log SQL query
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE   # Log binding values
+    com:
+      example:
+        postservice: DEBUG

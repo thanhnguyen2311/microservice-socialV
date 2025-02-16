@@ -8,12 +8,14 @@ import com.example.postservice.dto.UserInfo;
 import com.example.postservice.service.ICommentService;
 import com.example.postservice.service.impl.CommentLikeService;
 import com.example.postservice.service.impl.PostLikeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Slf4j
 @RequestMapping("/interaction")
 public class InteractionController {
     @Autowired
@@ -31,7 +33,7 @@ public class InteractionController {
         try {
             rp = commentService.save(dto, rp);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(rp);
         }
         return rp;
@@ -43,7 +45,7 @@ public class InteractionController {
         try {
             response = commentService.delete(id, response);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(response);
         }
         return response;
@@ -55,7 +57,7 @@ public class InteractionController {
         try {
             response = commentService.update(dto, response);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(response);
         }
         return response;
@@ -68,7 +70,7 @@ public class InteractionController {
             List<UserInfo> listUserLikePost = postLikeService.getListUserLikePost(id);
             response.setData(listUserLikePost);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(response);
         }
         return response;
@@ -81,7 +83,7 @@ public class InteractionController {
             List<UserInfo> listUserLikePost = commentLikeService.findByCommentId(id);
             response.setData(listUserLikePost);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(response);
         }
         return response;

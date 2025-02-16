@@ -5,12 +5,14 @@ import com.example.userservice.dto.*;
 import com.example.userservice.entity.FriendRequest;
 import com.example.userservice.service.IFriendRequestService;
 import com.github.javafaker.Faker;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Slf4j
 @RequestMapping("/friend")
 public class FriendController {
     @Autowired
@@ -44,7 +46,7 @@ public class FriendController {
                 rp.setMessage("Khong du dieu kien de tao yeu cau ket ban");
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(rp);
         }
         return rp;
@@ -59,7 +61,7 @@ public class FriendController {
                 rp.setMessage("Khong du dieu kien de tao yeu cau ket ban");
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(rp);
         }
         return rp;
@@ -72,7 +74,7 @@ public class FriendController {
             List<UserProjectionDTO> friendRqList = friendRequestService.getListFriendRequestForUser(id);
             rp.setData(friendRqList);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(rp);
         }
         return rp;
@@ -86,7 +88,7 @@ public class FriendController {
             rp.setData(friendRqList);
             rp.setCount(friendRqList.size());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(rp);
         }
         return rp;
@@ -100,7 +102,7 @@ public class FriendController {
             rp.setData(friendList);
             rp.setCount(friendList.size());
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(rp);
         }
         return rp;
@@ -115,7 +117,7 @@ public class FriendController {
                 rp.setMessage("Not exist friendship");
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.info(e.getMessage());
             return com.getErrorResponse(rp);
         }
         return rp;
