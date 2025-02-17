@@ -1,7 +1,6 @@
 package com.example.gatewayserver.filter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Bean;
@@ -10,9 +9,8 @@ import org.springframework.http.HttpHeaders;
 import reactor.core.publisher.Mono;
 
 @Configuration
+@Slf4j
 public class ResponseTraceFilter {
-
-    private static final Logger logger = LoggerFactory.getLogger(ResponseTraceFilter.class);
 
     @Autowired
     FilterUtility filterUtility;
@@ -23,7 +21,7 @@ public class ResponseTraceFilter {
             return chain.filter(exchange).then(Mono.fromRunnable(() -> {
                 HttpHeaders requestHeaders = exchange.getRequest().getHeaders();
                 String requestId = filterUtility.getRequestId(requestHeaders);
-                logger.debug("Updated the Request-ID to the outbound headers: {}", requestId);
+                log.info("Updated the Request-ID to the outbound headers: {}", requestId);
                 exchange.getResponse().getHeaders().add(filterUtility.REQUEST_ID, requestId);
             }));
         };
