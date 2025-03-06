@@ -4,19 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="898cb262-d019-45a1-b04b-792913374e35" name="Changes" comment="add service discovery and registration:eureka">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config-server/src/main/resources/config/gatewayserver.yml" afterDir="false" />
+    <list default="true" id="898cb262-d019-45a1-b04b-792913374e35" name="Changes" comment="update CB, fallback uri cho gateway">
+      <change afterPath="$PROJECT_DIR$/gatewayserver/src/main/java/com/example/gatewayserver/config/KeycloakRoleConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gatewayserver/src/main/java/com/example/gatewayserver/config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/854b9d00-3dad-4cd2-bc02-b891b9823738.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/854b9d00-3dad-4cd2-bc02-b891b9823738.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gatewayserver/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gatewayserver/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gatewayserver/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gatewayserver/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dockerfile" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -40,13 +49,6 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -66,12 +68,13 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.ConfigServerApplication.executor": "Run",
     "Spring Boot.EurekaserverApplication.executor": "Run",
+    "Spring Boot.GatewayserverApplication.executor": "Run",
     "Spring Boot.PostServiceApplication.executor": "Run",
     "Spring Boot.UserServiceApplication.executor": "Run",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Udemy/microservice-socialV",
+    "last_opened_file_path": "D:/mpos/mpos-portal",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -91,6 +94,9 @@
     ]
   }
 }]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Personal Project\microservice-socialV\config-server\src\main\resources\config" />
@@ -196,6 +202,11 @@
       <workItem from="1739286350893" duration="2861000" />
       <workItem from="1739432056676" duration="678000" />
       <workItem from="1739436264975" duration="5750000" />
+      <workItem from="1739725421482" duration="3671000" />
+      <workItem from="1739801472467" duration="6662000" />
+      <workItem from="1740058012876" duration="4249000" />
+      <workItem from="1740412463636" duration="7222000" />
+      <workItem from="1740817769729" duration="1610000" />
     </task>
     <task id="LOCAL-00001" summary="deploy bằng dockerfile và xây dựng docker compose">
       <option name="closed" value="true" />
@@ -205,7 +216,23 @@
       <option name="project" value="LOCAL" />
       <updated>1738683941367</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="update docker compose for api gateway">
+      <option name="closed" value="true" />
+      <created>1739729062296</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1739729062296</updated>
+    </task>
+    <task id="LOCAL-00003" summary="update CB, fallback uri cho gateway">
+      <option name="closed" value="true" />
+      <created>1739808458887</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1739808458887</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -224,7 +251,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="deploy bằng dockerfile và xây dựng docker compose" />
-    <option name="LAST_COMMIT_MESSAGE" value="deploy bằng dockerfile và xây dựng docker compose" />
+    <MESSAGE value="update docker compose for api gateway" />
+    <MESSAGE value="update CB, fallback uri cho gateway" />
+    <option name="LAST_COMMIT_MESSAGE" value="update CB, fallback uri cho gateway" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
