@@ -1,0 +1,44 @@
+server:
+  port: 9010
+spring:
+  application:
+    name: "message-service"
+  profiles:
+    active: "dev"
+  config:
+    import: "optional:configserver:${CONFIG_SERVER_URL:http://localhost:8071/}"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+    shutdown:
+      access: unrestricted
+  info:
+    env:
+      enabled: true
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://host.docker.internal:8070/eureka/
+
+info:
+  app:
+    name: "message-service"
+    description: "Service involve message"
+    version: "1.0.0"

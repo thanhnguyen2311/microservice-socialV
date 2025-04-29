@@ -10,7 +10,7 @@
         <module name="eurekaserver" />
         <module name="config-server" />
       </profile>
-      <profile name="Annotation profile for gatewayserver" enabled="true">
+      <profile name="Annotation profile for message-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -20,6 +20,8 @@
         <module name="gatewayserver" />
         <module name="post-service" />
         <module name="user-service" />
+        <module name="message-service" />
+        <module name="noti-service" />
       </profile>
     </annotationProcessing>
   </component>
@@ -28,6 +30,8 @@
       <module name="config-server" options="-parameters" />
       <module name="eurekaserver" options="-parameters" />
       <module name="gatewayserver" options="-parameters" />
+      <module name="message-service" options="-parameters" />
+      <module name="noti-service" options="-parameters" />
       <module name="post-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
