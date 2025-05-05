@@ -4,15 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="898cb262-d019-45a1-b04b-792913374e35" name="Changes" comment="update CB, fallback uri cho gateway">
-      <change afterPath="$PROJECT_DIR$/gatewayserver/src/main/java/com/example/gatewayserver/config/KeycloakRoleConverter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gatewayserver/src/main/java/com/example/gatewayserver/config/SecurityConfig.java" afterDir="false" />
+    <list default="true" id="898cb262-d019-45a1-b04b-792913374e35" name="Changes" comment="security phase 1">
+      <change afterPath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/component/Schedule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/config/KafkaConsumerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/config/KafkaProducerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/dto/LikeOrUnLikePostDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/kafka/KafkaConsumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/kafka/KafkaProducer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/854b9d00-3dad-4cd2-bc02-b891b9823738.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/854b9d00-3dad-4cd2-bc02-b891b9823738.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gatewayserver/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gatewayserver/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gatewayserver/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gatewayserver/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/post-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/controller/InteractionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/controller/InteractionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/service/IPostLikeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/service/IPostLikeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/service/impl/PostLikeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/service/impl/PostLikeService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +28,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Dockerfile" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -57,43 +63,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Docker.docker-compose: Compose Deployment.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.ConfigServerApplication.executor": "Run",
-    "Spring Boot.EurekaserverApplication.executor": "Run",
-    "Spring Boot.GatewayserverApplication.executor": "Run",
-    "Spring Boot.PostServiceApplication.executor": "Run",
-    "Spring Boot.UserServiceApplication.executor": "Run",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/mpos/mpos-portal",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "spring",
-    "spring.configuration.checksum": "9ff52f7f1494b5eef901496116c5e90d",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.docker-compose: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ConfigServerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.EurekaserverApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.GatewayserverApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.PostServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UserServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/mpos/mpos-api&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;spring&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;9ff52f7f1494b5eef901496116c5e90d&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -111,7 +117,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Docker.docker-compose: Compose Deployment">
+  <component name="RunManager" selected="Spring Boot.GatewayserverApplication">
     <configuration name="ConfigServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="config-server" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.configserver.ConfigServerApplication" />
@@ -207,6 +213,9 @@
       <workItem from="1740058012876" duration="4249000" />
       <workItem from="1740412463636" duration="7222000" />
       <workItem from="1740817769729" duration="1610000" />
+      <workItem from="1743608740816" duration="12000" />
+      <workItem from="1745593924019" duration="4360000" />
+      <workItem from="1746452924959" duration="644000" />
     </task>
     <task id="LOCAL-00001" summary="deploy bằng dockerfile và xây dựng docker compose">
       <option name="closed" value="true" />
