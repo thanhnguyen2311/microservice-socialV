@@ -20,6 +20,8 @@
         <module name="gatewayserver" />
         <module name="post-service" />
         <module name="user-service" />
+        <module name="message-service" />
+        <module name="noti-service" />
       </profile>
     </annotationProcessing>
   </component>
@@ -28,6 +30,8 @@
       <module name="config-server" options="-parameters" />
       <module name="eurekaserver" options="-parameters" />
       <module name="gatewayserver" options="-parameters" />
+      <module name="message-service" options="-parameters" />
+      <module name="noti-service" options="-parameters" />
       <module name="post-service" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>

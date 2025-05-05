@@ -78,6 +78,50 @@ services:
       file: common-config.yml
       service: microservice-eureka-config
 
+  noti-service:
+    image: "thanhcometodream/noti-service:s1"
+    container_name: noti-service-ms
+    ports:
+      - "9000:9000"
+    healthcheck:
+      test: "curl --fail --silent localhost:9000/actuator/health/readiness | grep UP || exit 1"
+      interval: 9s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    depends_on:
+      configserver:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: "noti-service"
+    extends:
+      file: common-config.yml
+      service: microservice-eureka-config
+
+  message-service:
+    image: "thanhcometodream/message-service:s1"
+    container_name: message-service-ms
+    ports:
+      - "9010:9010"
+    healthcheck:
+      test: "curl --fail --silent localhost:9010/actuator/health/readiness | grep UP || exit 1"
+      interval: 9s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    depends_on:
+      configserver:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+    environment:
+      SPRING_APPLICATION_NAME: "message-service"
+    extends:
+      file: common-config.yml
+      service: microservice-eureka-config
+
   gatewayserver:
     image: "thanhcometodream/gateway-server:s1"
     container_name: gateway-server-ms
@@ -87,6 +131,10 @@ services:
       user-service:
         condition: service_healthy
       post-service:
+        condition: service_healthy
+      noti-service:
+        condition: service_healthy
+      message-service:
         condition: service_healthy
     environment:
       SPRING_APPLICATION_NAME: "gatewayserver"
