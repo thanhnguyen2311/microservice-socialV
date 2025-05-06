@@ -1,10 +1,7 @@
 package com.example.postservice.controller;
 
 import com.example.postservice.component.Common;
-import com.example.postservice.dto.BaseResponse;
-import com.example.postservice.dto.CreateCommentDTO;
-import com.example.postservice.dto.UpdateCommentDTO;
-import com.example.postservice.dto.UserInfo;
+import com.example.postservice.dto.*;
 import com.example.postservice.service.ICommentService;
 import com.example.postservice.service.impl.CommentLikeService;
 import com.example.postservice.service.impl.PostLikeService;
@@ -87,5 +84,17 @@ public class InteractionController {
             return com.getErrorResponse(response);
         }
         return response;
+    }
+
+    @PostMapping("/like-or-unlike-post")
+    public BaseResponse<Object> likeOrUnlikePost(@RequestBody LikeOrUnLikePostDTO dto) {
+        BaseResponse<Object> rp = new BaseResponse<>();
+        try {
+            rp = postLikeService.likeOrUnlikePost(dto, rp);
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            return com.getErrorResponse(rp);
+        }
+        return rp;
     }
 }

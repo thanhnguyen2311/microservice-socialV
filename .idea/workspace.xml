@@ -4,21 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="898cb262-d019-45a1-b04b-792913374e35" name="Changes" comment="add log4j, requestId, filter request">
-      <change afterPath="$PROJECT_DIR$/config-server/src/main/resources/config/message-service-dev.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config-server/src/main/resources/config/message-service.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config-server/src/main/resources/config/noti-service-dev.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config-server/src/main/resources/config/noti-service.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/noti-service/src/main/java/com/example/noti_service/component/Common.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/noti-service/src/main/java/com/example/noti_service/component/JsonFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/noti-service/src/main/java/com/example/noti_service/config/RedisConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/noti-service/src/main/java/com/example/noti_service/dto/BaseResponse.java" afterDir="false" />
+    <list default="true" id="898cb262-d019-45a1-b04b-792913374e35" name="Changes" comment="security phase 1">
+      <change afterPath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/component/Schedule.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/config/KafkaConsumerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/config/KafkaProducerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/dto/LikeOrUnLikePostDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/kafka/KafkaConsumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/kafka/KafkaProducer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/854b9d00-3dad-4cd2-bc02-b891b9823738.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/854b9d00-3dad-4cd2-bc02-b891b9823738.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gatewayserver/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/gatewayserver/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/post-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/controller/InteractionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/controller/InteractionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/service/IPostLikeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/service/IPostLikeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/service/impl/PostLikeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/post-service/src/main/java/com/example/postservice/service/impl/PostLikeService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +27,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Dockerfile" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -54,13 +55,6 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 5
 }</component>
@@ -69,53 +63,49 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Docker.docker-compose: Compose Deployment.executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.ConfigServerApplication.executor": "Run",
-    "Spring Boot.EurekaserverApplication.executor": "Run",
-    "Spring Boot.PostServiceApplication.executor": "Run",
-    "Spring Boot.UserServiceApplication.executor": "Run",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Udemy/microservice-socialV/message-service",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "spring",
-    "spring.configuration.checksum": "3c16f1bd066911c89eccea02ffe568fc",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.docker-compose: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ConfigServerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.EurekaserverApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.GatewayserverApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.PostServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UserServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/mpos/mpos-api&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;spring&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;9ff52f7f1494b5eef901496116c5e90d&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Udemy\microservice-socialV\noti-service\src\main\java\com\example\noti_service" />
       <recent name="D:\Personal Project\microservice-socialV\config-server\src\main\resources\config" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.example.noti_service.dto" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -127,7 +117,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.NotiServiceApplication">
+  <component name="RunManager" selected="Spring Boot.GatewayserverApplication">
     <configuration name="ConfigServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="config-server" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.configserver.ConfigServerApplication" />
@@ -145,20 +135,6 @@
     <configuration name="GatewayserverApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="gatewayserver" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.gatewayserver.GatewayserverApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MessageServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="message-service" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.messageservice.MessageServiceApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="NotiServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="noti-service" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.noti_service.NotiServiceApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -232,23 +208,14 @@
       <workItem from="1739286350893" duration="2861000" />
       <workItem from="1739432056676" duration="678000" />
       <workItem from="1739436264975" duration="5750000" />
-      <workItem from="1739442401058" duration="443000" />
-      <workItem from="1739503000307" duration="4144000" />
-      <workItem from="1739507338628" duration="10000" />
-      <workItem from="1739515399599" duration="588000" />
-      <workItem from="1739787427339" duration="535000" />
-      <workItem from="1741250809964" duration="143000" />
-      <workItem from="1741316034210" duration="23000" />
-      <workItem from="1742368901598" duration="747000" />
-      <workItem from="1742375177692" duration="3281000" />
-      <workItem from="1742435319938" duration="31000" />
-      <workItem from="1742877131339" duration="615000" />
-      <workItem from="1742957910588" duration="3014000" />
-      <workItem from="1742971240911" duration="1207000" />
-      <workItem from="1743396054736" duration="2758000" />
-      <workItem from="1745635997566" duration="294000" />
-      <workItem from="1745894882481" duration="1278000" />
-      <workItem from="1745912342219" duration="2976000" />
+      <workItem from="1739725421482" duration="3671000" />
+      <workItem from="1739801472467" duration="6662000" />
+      <workItem from="1740058012876" duration="4249000" />
+      <workItem from="1740412463636" duration="7222000" />
+      <workItem from="1740817769729" duration="1610000" />
+      <workItem from="1743608740816" duration="12000" />
+      <workItem from="1745593924019" duration="4360000" />
+      <workItem from="1746452924959" duration="644000" />
     </task>
     <task id="LOCAL-00001" summary="deploy bằng dockerfile và xây dựng docker compose">
       <option name="closed" value="true" />
@@ -258,14 +225,23 @@
       <option name="project" value="LOCAL" />
       <updated>1738683941367</updated>
     </task>
-    <task id="LOCAL-00002" summary="add log4j, requestId, filter request">
-      <created>1739507116848</created>
+    <task id="LOCAL-00002" summary="update docker compose for api gateway">
+      <option name="closed" value="true" />
+      <created>1739729062296</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1739507116848</updated>
+      <updated>1739729062296</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="update CB, fallback uri cho gateway">
+      <option name="closed" value="true" />
+      <created>1739808458887</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1739808458887</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -283,26 +259,10 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <MESSAGE value="deploy bằng dockerfile và xây dựng docker compose" />
-    <MESSAGE value="add log4j, requestId, filter request" />
-    <option name="LAST_COMMIT_MESSAGE" value="add log4j, requestId, filter request" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/user-service/src/main/java/com/example/userservice/controller/FriendController.java</url>
-          <line>102</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/gatewayserver/src/main/java/com/example/gatewayserver/filter/RequestTraceFilter.java</url>
-          <line>22</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="update docker compose for api gateway" />
+    <MESSAGE value="update CB, fallback uri cho gateway" />
+    <option name="LAST_COMMIT_MESSAGE" value="update CB, fallback uri cho gateway" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
