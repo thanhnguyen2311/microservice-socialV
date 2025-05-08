@@ -1,5 +1,9 @@
 package com.example.messageservice.dto;
 
-public class ChangeGroupNameReq {
+import lombok.Data;
 
+@Data
+public class ChangeGroupNameReq {
+    private Long conversionId;
+    private String name;
 }

@@ -31,7 +31,7 @@ public class ChatController {
     public BaseResponse<Object> getConversationList(@RequestBody ConversationListReq rq) {
         BaseResponse<Object> response = new BaseResponse<>();
         try {
-//            response = postService.save(postDto, response);
+            response = messageService.findAllConversationByUser(rq, response);
         } catch (Exception e) {
             log.info(e.getMessage());
             return com.getErrorResponse(response);
@@ -51,11 +51,12 @@ public class ChatController {
         return response;
     }
 
+    //fix chỉ lấy tên và avatar
     @GetMapping("/member-list/{conversationId}")
     public BaseResponse<Object> getMemberListConversation(@PathVariable Long conversationId) {
         BaseResponse<Object> response = new BaseResponse<>();
         try {
-//            response = postService.save(postDto, response);
+            response = messageService.findMemberListInChat(conversationId, response);
         } catch (Exception e) {
             log.info(e.getMessage());
             return com.getErrorResponse(response);
@@ -79,7 +80,7 @@ public class ChatController {
     public BaseResponse<Object> changeGroupName(@RequestBody ChangeGroupNameReq rq) {
         BaseResponse<Object> response = new BaseResponse<>();
         try {
-//            response = postService.save(postDto, response);
+            messageService.updateGroupChatName(rq.getConversionId(),rq.getName());
         } catch (Exception e) {
             log.info(e.getMessage());
             return com.getErrorResponse(response);

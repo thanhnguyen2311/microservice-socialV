@@ -1,12 +1,10 @@
 package com.example.messageservice.service.impl;
 
-import com.example.messageservice.dto.BaseResponse;
-import com.example.messageservice.dto.CheckExistPersonalConvRequest;
-import com.example.messageservice.dto.CreateConversationReq;
-import com.example.messageservice.dto.CreateMessageReq;
+import com.example.messageservice.dto.*;
 import com.example.messageservice.entity.Conversation;
 import com.example.messageservice.entity.ConversationMembers;
 import com.example.messageservice.entity.Message;
+import com.example.messageservice.entity.SocialVUser;
 import com.example.messageservice.repository.IConversationMembersRepository;
 import com.example.messageservice.repository.IConversationRepository;
 import com.example.messageservice.repository.IMessageRepository;
@@ -18,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -28,9 +27,17 @@ public class MessageService implements IMessageService {
     private IConversationRepository conversationRepository;
     @Autowired
     private IConversationMembersRepository conversationMembersRepository;
+
     @Override
     public BaseResponse<Object> findAllByConversation(Long id, BaseResponse<Object> rp) {
         rp.setData(messageRepository.findAllByConversationId(id));
+        return rp;
+    }
+
+    @Override
+    public BaseResponse<Object> findMemberListInChat(Long id, BaseResponse<Object> rp) {
+        List<SocialVUser> users = conversationMembersRepository.findMemberListInChat(id);
+        rp.setData(users);
         return rp;
     }
 
@@ -88,5 +95,18 @@ public class MessageService implements IMessageService {
             rp.setMessage("Existed conversation");
         }
         return rp;
+    }
+
+    public BaseResponse<Object> findAllConversationByUser(ConversationListReq rq, BaseResponse<Object> rp) {
+        List<Conversation> conversations = conversationRepository.findConversationsByUserIdAndType(rq.getUserId(), rq.getType());
+        rp.setData(conversations);
+        return rp;
+    }
+
+    @Override
+    public void updateGroupChatName(Long id, String name) {
+        Conversation conversation = conversationRepository.findById(id).get();
+        conversation.setName(name);
+        conversationRepository.save(conversation);
     }
 }
