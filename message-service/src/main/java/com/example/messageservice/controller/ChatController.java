@@ -51,7 +51,6 @@ public class ChatController {
         return response;
     }
 
-    //fix chỉ lấy tên và avatar
     @GetMapping("/member-list/{conversationId}")
     public BaseResponse<Object> getMemberListConversation(@PathVariable Long conversationId) {
         BaseResponse<Object> response = new BaseResponse<>();

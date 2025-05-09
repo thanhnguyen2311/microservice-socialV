@@ -11,8 +11,8 @@ import java.util.Map;
 @Service
 public class KafkaConsumer {
 
-    public static Map<String, String> likeMap = new HashMap<>();
-    public static Map<String, String> unlikeMap = new HashMap<>();
+    public static Map<String, LikeOrUnLikePostDTO> likeMap = new HashMap<>();
+    public static Map<String, LikeOrUnLikePostDTO> unlikeMap = new HashMap<>();
 
     @KafkaListener(topics = "like-or-unlike-post", groupId = "post-group")
     public void listen(String message) {
@@ -21,13 +21,13 @@ public class KafkaConsumer {
             if (unlikeMap.containsKey(dto.getUserId() + "_" + dto.getPostId())) {
                 unlikeMap.remove(dto.getUserId() + "_" + dto.getPostId());
             } else {
-                likeMap.put(dto.getUserId() + "_" + dto.getPostId(), JsonFactory.toJson(dto));
+                likeMap.put(dto.getUserId() + "_" + dto.getPostId(), dto);
             }
         } else {
             if (likeMap.containsKey(dto.getUserId() + "_" + dto.getPostId())) {
                 likeMap.remove(dto.getUserId() + "_" + dto.getPostId());
             } else {
-                unlikeMap.put(dto.getUserId() + "_" + dto.getPostId(), JsonFactory.toJson(dto));
+                unlikeMap.put(dto.getUserId() + "_" + dto.getPostId(), dto);
             }
         }
     }

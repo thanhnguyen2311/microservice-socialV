@@ -36,7 +36,7 @@ public class MessageService implements IMessageService {
 
     @Override
     public BaseResponse<Object> findMemberListInChat(Long id, BaseResponse<Object> rp) {
-        List<SocialVUser> users = conversationMembersRepository.findMemberListInChat(id);
+        List<UserInfoDTO> users = conversationMembersRepository.findMemberListInChat(id);
         rp.setData(users);
         return rp;
     }
