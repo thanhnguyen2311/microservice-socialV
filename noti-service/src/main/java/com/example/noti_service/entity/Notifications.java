@@ -13,15 +13,19 @@ public class Notifications {
     private Long id;
     @Column(name = "RECIPIENT_ID")
     private Long recipientId;
-    @Column(name = "ACTOR_ID")
-    private Long actorId;
     @Column(name = "POST_ID")
     private String postId;
     @Column(name = "COMMENT_ID")
     private Long commentId;
+    private Integer count; //số lượng tương tác
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "LATEST_USER_ID", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
+    private SocialVUser latestActor;
+    @Column(name = "LATEST_USER_ID")
+    private Long latestActorId;
     @Enumerated(EnumType.STRING)
     private NotificationType type;
-    private Date createdDate;
+    private Date modifiedDate;
     private Integer isRead;
 
 }
