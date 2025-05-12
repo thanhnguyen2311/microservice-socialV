@@ -87,10 +87,22 @@ public class InteractionController {
     }
 
     @PostMapping("/like-or-unlike-post")
-    public BaseResponse<Object> likeOrUnlikePost(@RequestBody LikeOrUnLikePostDTO dto) {
+    public BaseResponse<Object> likeOrUnlikePost(@RequestBody LikeOrUnLikeDTO dto) {
         BaseResponse<Object> rp = new BaseResponse<>();
         try {
             rp = postLikeService.likeOrUnlikePost(dto, rp);
+        } catch (Exception e) {
+            log.info(e.getMessage());
+            return com.getErrorResponse(rp);
+        }
+        return rp;
+    }
+
+    @PostMapping("/like-or-unlike-comment")
+    public BaseResponse<Object> likeOrUnlikeComment(@RequestBody LikeOrUnLikeDTO dto) {
+        BaseResponse<Object> rp = new BaseResponse<>();
+        try {
+            rp = commentLikeService.likeOrUnlikeComment(dto, rp);
         } catch (Exception e) {
             log.info(e.getMessage());
             return com.getErrorResponse(rp);

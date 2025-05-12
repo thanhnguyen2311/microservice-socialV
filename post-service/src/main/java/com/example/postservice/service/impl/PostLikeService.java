@@ -5,7 +5,7 @@ import com.example.postservice.component.JsonFactory;
 import com.example.postservice.component.RestFactory;
 import com.example.postservice.dto.BaseResponse;
 import com.example.postservice.dto.InfoListUserRq;
-import com.example.postservice.dto.LikeOrUnLikePostDTO;
+import com.example.postservice.dto.LikeOrUnLikeDTO;
 import com.example.postservice.dto.UserInfo;
 import com.example.postservice.entity.PostLike;
 import com.example.postservice.kafka.KafkaProducer;
@@ -68,7 +68,7 @@ public class PostLikeService implements IPostLikeService {
     }
 
     @Override
-    public BaseResponse<Object> likeOrUnlikePost(LikeOrUnLikePostDTO dto, BaseResponse rp) {
+    public BaseResponse<Object> likeOrUnlikePost(LikeOrUnLikeDTO dto, BaseResponse rp) {
         kafkaProducer.sendMessage("like-or-unlike-post", gson.toJson(dto));
         return rp;
     }

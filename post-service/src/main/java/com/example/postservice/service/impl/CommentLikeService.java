@@ -5,10 +5,13 @@ import com.example.postservice.component.JsonFactory;
 import com.example.postservice.component.RestFactory;
 import com.example.postservice.dto.BaseResponse;
 import com.example.postservice.dto.InfoListUserRq;
+import com.example.postservice.dto.LikeOrUnLikeDTO;
 import com.example.postservice.dto.UserInfo;
 import com.example.postservice.entity.CommentLike;
+import com.example.postservice.kafka.KafkaProducer;
 import com.example.postservice.repository.ICommentLikeRepository;
 import com.example.postservice.service.ICommentLikeService;
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +26,10 @@ import java.util.stream.Collectors;
 public class CommentLikeService implements ICommentLikeService {
     @Autowired
     private ICommentLikeRepository commentLikeRepository;
+    @Autowired
+    private KafkaProducer kafkaProducer;
+    @Autowired
+    private Gson gson;
 
     @Override
     public boolean existsByCommentIdAndUserId(Long commentId, Long userId) {
@@ -42,5 +49,11 @@ public class CommentLikeService implements ICommentLikeService {
         Type type = new TypeToken<BaseResponse<List<UserInfo>>>() {}.getType();
         BaseResponse<List<UserInfo>> coreRp = JsonFactory.fromJson(res.getBody(), type);
         return coreRp.getData();
+    }
+
+    @Override
+    public BaseResponse<Object> likeOrUnlikeComment(LikeOrUnLikeDTO dto, BaseResponse rp) {
+        kafkaProducer.sendMessage("like-or-unlike-comment", gson.toJson(dto));
+        return rp;
     }
 }

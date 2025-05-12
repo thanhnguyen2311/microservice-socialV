@@ -28,4 +28,5 @@ public interface ICommentLikeRepository extends JpaRepository<CommentLike, Long>
     List<CheckUserLikeCommentDTO> checkLikeListComment(@Param("commentIds") Set<Long> commentIds, @Param("userId") Long userId);
 
     List<CommentLike> findAllByCommentId(Long commentId);
+    void deleteAllByCommentIdAndUserId(Long commentId, Long userId);
 }
