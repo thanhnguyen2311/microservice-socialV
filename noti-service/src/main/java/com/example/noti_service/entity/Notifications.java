@@ -2,11 +2,13 @@ package com.example.noti_service.entity;
 
 import com.example.noti_service.enumm.NotificationType;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Date;
 
 @Entity
 @Table
+@Data
 public class Notifications {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

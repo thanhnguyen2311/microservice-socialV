@@ -1,4 +1,4 @@
-package com.example.postservice.dto;
+package com.example.noti_service.dto;
 
 import lombok.Data;
 
