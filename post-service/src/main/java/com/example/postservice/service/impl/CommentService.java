@@ -6,9 +6,11 @@ import com.example.postservice.component.RestFactory;
 import com.example.postservice.dto.*;
 import com.example.postservice.entity.Comment;
 import com.example.postservice.enumm.CommentType;
+import com.example.postservice.kafka.KafkaProducer;
 import com.example.postservice.repository.ICommentLikeRepository;
 import com.example.postservice.repository.ICommentRepository;
 import com.example.postservice.service.ICommentService;
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.util.Strings;
@@ -34,6 +36,10 @@ public class CommentService implements ICommentService {
     private ICommentRepository commentRepository;
     @Autowired
     private ICommentLikeRepository commentLikeRepository;
+    @Autowired
+    private KafkaProducer kafkaProducer;
+    @Autowired
+    private Gson gson;
 
     @Override
     public BaseResponse<Object> save(CreateCommentDTO dto, BaseResponse<Object> rp) {
@@ -48,6 +54,7 @@ public class CommentService implements ICommentService {
                 comment.setParentCommentId(Long.parseLong(dto.getParentCommentId()));
             }
             commentRepository.save(comment);
+            kafkaProducer.sendMessage("cmt-post-notification", gson.toJson(dto));
         } else {
             rp.setCode("03");
             rp.setMessage("Thong tin dau vao khong hop le");

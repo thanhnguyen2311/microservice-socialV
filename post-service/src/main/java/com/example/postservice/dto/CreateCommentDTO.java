@@ -7,6 +7,7 @@ import org.apache.logging.log4j.util.Strings;
 public class CreateCommentDTO {
     private String userId;
     private String postId;
+    private String recipientId;
     private String content;
     private String commentType;
     private String parentCommentId;
