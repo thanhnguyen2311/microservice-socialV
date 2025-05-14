@@ -58,11 +58,13 @@ public class Schedule {
         Map<String, List<LikeOrUnLikeDTO>> unlikeMapData = new HashMap<>(unlikePostMap);
         unlikePostMap.clear();
         unlikeMapData.forEach((postId, listUser) -> {
+            if (listUser == null || listUser.isEmpty()) return;
             Notifications notification = notificationRepository.findByPostIdAndType(postId, NotificationType.LIKE).get();
             if (notification.getCount() == listUser.size()) {
                 notificationRepository.delete(notification);
             } else {
                 notification.setCount(notification.getCount() - listUser.size());
+                notification.setLatestActorId(notificationRepository.latestUserLikePost(postId));
                 notificationRepository.save(notification);
             }
         });

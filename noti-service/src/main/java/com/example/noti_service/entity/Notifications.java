@@ -1,5 +1,6 @@
 package com.example.noti_service.entity;
 
+import com.example.noti_service.dto.UserInfo;
 import com.example.noti_service.enumm.NotificationType;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -20,14 +21,12 @@ public class Notifications {
     @Column(name = "COMMENT_ID")
     private Long commentId;
     private Integer count; //số lượng tương tác
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "LATEST_USER_ID", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
-    private SocialVUser latestActor;
     @Column(name = "LATEST_USER_ID")
     private Long latestActorId;
     @Enumerated(EnumType.STRING)
     private NotificationType type;
     private Date modifiedDate;
     private Integer isRead;
-
+    @Transient
+    private UserInfo latestActorInfo;
 }

@@ -3,8 +3,10 @@ package com.example.postservice.component;
 import com.example.postservice.dto.LikeOrUnLikeDTO;
 import com.example.postservice.entity.CommentLike;
 import com.example.postservice.entity.PostLike;
+import com.example.postservice.kafka.KafkaProducer;
 import com.example.postservice.repository.ICommentLikeRepository;
 import com.example.postservice.repository.IPostLikeRepository;
+import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -24,10 +26,15 @@ public class Schedule {
     private IPostLikeRepository postLikeRepository;
     @Autowired
     private ICommentLikeRepository commentLikeRepository;
+    @Autowired
+    private KafkaProducer kafkaProducer;
+    @Autowired
+    private Gson gson;
 
-    @Scheduled(fixedRate = 2000) // 2s
+    @Scheduled(fixedDelay = 2000) // 2s
     public void likePostJob() {
         Map<String, LikeOrUnLikeDTO> likeMapData = new HashMap<>(likePostMap);
+        if (likeMapData.isEmpty()) return;
         likePostMap.clear();
         log.info("like post job started");
         List<PostLike> postLikes = new ArrayList<>();
@@ -40,24 +47,29 @@ public class Schedule {
             postLikes.add(postLike);
         });
         postLikeRepository.saveAll(postLikes);
+        List<LikeOrUnLikeDTO> messageNotiList = new ArrayList<>(likeMapData.values());;
+        kafkaProducer.sendMessage("like-or-unlike-post-notification", gson.toJson(messageNotiList));
         log.info("like post job finished");
     }
 
-    @Scheduled(fixedRate = 2000) // 2s
+    @Scheduled(fixedDelay = 2000) // 2s
     public void unlikePostJob() {
         Map<String, LikeOrUnLikeDTO> unlikeMapData = new HashMap<>(unlikePostMap);
+        if (unlikeMapData.isEmpty()) return;
         unlikePostMap.clear();
         log.info("unlike post job started");
-        //goi vao DB de insert hang loat ban ghi like
         unlikeMapData.forEach((key, value) -> {
             postLikeRepository.deleteAllByPostIdAndUserId(value.getPostId(), Long.valueOf(value.getUserId()));
         });
+        List<LikeOrUnLikeDTO> messageNotiList = new ArrayList<>(unlikeMapData.values());
+        kafkaProducer.sendMessage("like-or-unlike-post-notification", gson.toJson(messageNotiList));
         log.info("unlike post job finished");
     }
 
-    @Scheduled(fixedRate = 2000) // 2s
+    @Scheduled(fixedDelay = 2000) // 2s
     public void likeCommentJob() {
         Map<String, LikeOrUnLikeDTO> likeMapData = new HashMap<>(likeCommentMap);
+        if (likeMapData.isEmpty()) return;
         likeCommentMap.clear();
         log.info("like comment job started");
         List<CommentLike> cmtLikes = new ArrayList<>();
@@ -73,9 +85,10 @@ public class Schedule {
         log.info("like comment job finished");
     }
 
-    @Scheduled(fixedRate = 2000) // 2s
+    @Scheduled(fixedDelay = 2000) // 2s
     public void unlikeCommentJob() {
         Map<String, LikeOrUnLikeDTO> unlikeMapData = new HashMap<>(unlikeCommentMap);
+        if (unlikeMapData.isEmpty()) return;
         unlikeCommentMap.clear();
         log.info("unlike comment job started");
         //goi vao DB de insert hang loat ban ghi like
