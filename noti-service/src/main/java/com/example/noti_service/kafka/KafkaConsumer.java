@@ -50,4 +50,28 @@ public class KafkaConsumer {
         List<NotiCommentDTO> listComment = commentMap.computeIfAbsent(dto.getPostId(), k -> new ArrayList<>());
         listComment.add(dto);
     }
+
+    @KafkaListener(topics = "like-or-unlike-comment-notification", groupId = "noti-group")
+    public void listenLikeOrUnlikeComment(String message) {
+        Type type = new TypeToken<List<LikeOrUnLikeDTO>>() {}.getType();
+        List<LikeOrUnLikeDTO> listMsg = JsonFactory.fromJson(message, type);
+        listMsg.forEach(dto -> {
+            if (dto.getUserId().equals(dto.getRecipientId())) {
+                return;
+            }
+            //gom nhóm theo comment
+            List<LikeOrUnLikeDTO> listUserLike = likeCommentMap.computeIfAbsent(dto.getCommentId(), k -> new ArrayList<>());
+            List<LikeOrUnLikeDTO> listUserUnlike = unlikeCommentMap.computeIfAbsent(dto.getCommentId(), k -> new ArrayList<>());
+
+            if ("1".equals(dto.getType())) { // Like
+                if (!listUserUnlike.removeIf(user -> user.getUserId().equals(dto.getUserId()))) {
+                    listUserLike.add(dto);
+                }
+            } else { // Unlike
+                if (!listUserLike.removeIf(user -> user.getUserId().equals(dto.getUserId()))) {
+                    listUserUnlike.add(dto);
+                }
+            }
+        });
+    }
 }

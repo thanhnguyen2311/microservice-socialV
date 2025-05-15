@@ -14,9 +14,11 @@ import java.util.Optional;
 public interface INotificationRepository extends JpaRepository<Notifications, Long> {
     List<Notifications> findAllByRecipientIdOrderByModifiedDateDesc(Long userId, PageRequest pageRequest);
     Optional<Notifications> findByPostIdAndType(String postId, NotificationType type);
-    Optional<Notifications> findByCommentIdAndRecipientId(Long commentId, Long recipientId);
+    Optional<Notifications> findByCommentIdAndType(Long commentId, NotificationType type);
     @Query(value = "select user_id from post_like where post_id = ?1 and user_id != ?2 order by created_date desc limit 1", nativeQuery = true)
     Long latestUserLikePost(String postId, String ownerId);
+    @Query(value = "select user_id from comment_like where comment_id = ?1 and user_id != ?2 order by created_date desc limit 1", nativeQuery = true)
+    Long latestUserLikeComment(String commentId, String ownerId);
     @Query(value = "select count(distinct user_id) from comment where post_id = ?1 and user_id != ?2", nativeQuery = true)
     Integer countUserCommentPost(String postId, String ownerId);
 }

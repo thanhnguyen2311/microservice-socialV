@@ -82,6 +82,8 @@ public class Schedule {
             cmtLikes.add(cmtLike);
         });
         commentLikeRepository.saveAll(cmtLikes);
+        List<LikeOrUnLikeDTO> messageNotiList = new ArrayList<>(likeMapData.values());
+        kafkaProducer.sendMessage("like-or-unlike-comment-notification", gson.toJson(messageNotiList));
         log.info("like comment job finished");
     }
 
@@ -93,8 +95,10 @@ public class Schedule {
         log.info("unlike comment job started");
         //goi vao DB de insert hang loat ban ghi like
         unlikeMapData.forEach((key, value) -> {
-            commentLikeRepository.deleteAllByCommentIdAndUserId(Long.valueOf(value.getPostId()), Long.valueOf(value.getUserId()));
+            commentLikeRepository.deleteAllByCommentIdAndUserId(Long.valueOf(value.getCommentId()), Long.valueOf(value.getUserId()));
         });
+        List<LikeOrUnLikeDTO> messageNotiList = new ArrayList<>(unlikeMapData.values());
+        kafkaProducer.sendMessage("like-or-unlike-comment-notification", gson.toJson(messageNotiList));
         log.info("unlike comment job finished");
     }
 }

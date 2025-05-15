@@ -103,4 +103,55 @@ public class Schedule {
         });
         log.info("notification comment post job done");
     }
+
+    @Scheduled(fixedRate = 8000) // 8s
+    public void notiLikeCommentJob() {
+        log.info("notification like comment job started");
+        Map<String, List<LikeOrUnLikeDTO>> likeMapData = new HashMap<>(likeCommentMap);
+        likeCommentMap.clear();
+        likeMapData.forEach((commentId, listUser) -> {
+            if (listUser == null || listUser.isEmpty()) return;
+
+            String recipientId = listUser.get(0).getRecipientId();
+            String latestUserId = listUser.get(listUser.size() - 1).getUserId();
+            int likeCount = listUser.size();
+
+            Notifications notification = notificationRepository
+                    .findByCommentIdAndType(Long.parseLong(commentId), NotificationType.COMMENT_LIKE)
+                    .map(noti -> {
+                        noti.setCount(noti.getCount() + likeCount);
+                        noti.setLatestActorId(Long.valueOf(latestUserId));
+                        noti.setModifiedDate(new Date());
+                        noti.setIsRead(0);
+                        return notificationRepository.save(noti);
+                    })
+                    .orElseGet(() -> {
+                        Notifications newNoti = new Notifications();
+                        newNoti.setRecipientId(Long.valueOf(recipientId));
+                        newNoti.setPostId(listUser.get(0).getPostId());
+                        newNoti.setCommentId(Long.parseLong(commentId));
+                        newNoti.setCount(likeCount);
+                        newNoti.setLatestActorId(Long.valueOf(latestUserId));
+                        newNoti.setModifiedDate(new Date());
+                        newNoti.setType(NotificationType.COMMENT_LIKE);
+                        newNoti.setIsRead(0);
+                        return notificationRepository.save(newNoti);
+                    });
+        });
+        Map<String, List<LikeOrUnLikeDTO>> unlikeMapData = new HashMap<>(unlikeCommentMap);
+        unlikeCommentMap.clear();
+        unlikeMapData.forEach((commentId, listUser) -> {
+            if (listUser == null || listUser.isEmpty()) return;
+            Notifications notification = notificationRepository.findByCommentIdAndType(Long.valueOf(commentId), NotificationType.COMMENT_LIKE).get();
+            if (notification.getCount() == listUser.size()) {
+                notificationRepository.delete(notification);
+            } else {
+                String recipientId = listUser.get(0).getRecipientId();
+                notification.setCount(notification.getCount() - listUser.size());
+                notification.setLatestActorId(notificationRepository.latestUserLikeComment(commentId, recipientId));
+                notificationRepository.save(notification);
+            }
+        });
+        log.info("notification like comment job done");
+    }
 }
